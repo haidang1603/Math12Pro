@@ -370,6 +370,23 @@ export const EXAM_GIUA_KI_1_DE1_HONG_YEN: ExamData = {
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Tối ưu hộp chữ nhật",
       content: "PHẦN IV - CÂU 2 (TỰ LUẬN):\nTừ một tấm tôn hình chữ nhật kích thước $60\\text{ cm} \\times 40\\text{ cm}$, người ta cắt bốn góc bốn hình vuông cạnh $x\\text{ cm}$ rồi gập thành chiếc hộp không nắp. Tìm $x$ để thể tích hộp là lớn nhất.",
+      svgContent: `<svg width="280" height="190" viewBox="0 0 280 190" xmlns="http://www.w3.org/2000/svg" class="max-w-full h-auto">
+  <rect x="40" y="30" width="200" height="130" fill="#f8fafc" stroke="#0f172a" stroke-width="2" />
+  <rect x="40" y="30" width="30" height="30" fill="#94a3b8" stroke="#0f172a" stroke-width="1.5" />
+  <rect x="210" y="30" width="30" height="30" fill="#94a3b8" stroke="#0f172a" stroke-width="1.5" />
+  <rect x="40" y="130" width="30" height="30" fill="#94a3b8" stroke="#0f172a" stroke-width="1.5" />
+  <rect x="210" y="130" width="30" height="30" fill="#94a3b8" stroke="#0f172a" stroke-width="1.5" />
+  <line x1="70" y1="30" x2="70" y2="160" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
+  <line x1="210" y1="30" x2="210" y2="160" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
+  <line x1="40" y1="60" x2="240" y2="60" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
+  <line x1="40" y1="130" x2="240" y2="130" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
+  <text x="55" y="50" font-family="Times New Roman, serif" font-size="14" font-style="italic" fill="#ffffff" text-anchor="middle">x</text>
+  <text x="225" y="50" font-family="Times New Roman, serif" font-size="14" font-style="italic" fill="#ffffff" text-anchor="middle">x</text>
+  <text x="55" y="150" font-family="Times New Roman, serif" font-size="14" font-style="italic" fill="#ffffff" text-anchor="middle">x</text>
+  <text x="225" y="150" font-family="Times New Roman, serif" font-size="14" font-style="italic" fill="#ffffff" text-anchor="middle">x</text>
+  <text x="140" y="180" font-family="Times New Roman, serif" font-size="14" fill="#0f172a" text-anchor="middle">60 cm</text>
+  <text x="20" y="100" font-family="Times New Roman, serif" font-size="14" fill="#0f172a" text-anchor="middle">40 cm</text>
+</svg>`,
       correctAnswer: "7,85",
       acceptableAnswers: ["7,85", "7.85"],
       isEssay: true,

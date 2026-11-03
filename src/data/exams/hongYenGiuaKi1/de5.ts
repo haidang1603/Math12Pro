@@ -10,6 +10,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
   tags: ["Giữa kì 1", "Toán 12B", "GV Lê Thị Hồng Yến", "Đề 5"],
   part1: [
     {
+      imageUrl: "/exams/hongYen/de5_p1_c1.png",
       id: 1,
       part: 1,
       number: 1,
@@ -27,6 +28,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       explanation: "Theo bảng biến thiên, trên khoảng $(-1; 2)$, đạo hàm $f'(x) < 0$ nên hàm số nghịch biến trên khoảng $(-1; 2)$."
     },
     {
+      imageUrl: "/exams/hongYen/de5_p1_c2.png",
       id: 2,
       part: 1,
       number: 2,
@@ -44,6 +46,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       explanation: "Đạo hàm $f'(x)$ đổi dấu từ dương sang âm khi qua điểm $x = -2$, do đó $x = -2$ là điểm cực đại của hàm số."
     },
     {
+      imageUrl: "/exams/hongYen/de5_p1_c3.png",
       id: 3,
       part: 1,
       number: 3,
@@ -95,6 +98,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       explanation: "$y' = x^2 - 2x - 3 = (x + 1)(x - 3) = 0 \\iff x = -1$ (cực đại) hoặc $x = 3$ (cực tiểu)."
     },
     {
+      imageUrl: "/exams/hongYen/de5_p1_c6.png",
       id: 6,
       part: 1,
       number: 6,
@@ -112,6 +116,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       explanation: "So sánh các giá trị trên đoạn, giá trị lớn nhất là $\\max_{[-2; 3]} f(x) = f(-1) = 6$."
     },
     {
+      imageUrl: "/exams/hongYen/de5_p1_c7.png",
       id: 7,
       part: 1,
       number: 7,
@@ -163,6 +168,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       explanation: "Chia tử cho mẫu: $\\frac{x^2 + 2x - 1}{x + 1} = x + 1 - \\frac{2}{x + 1}$. Do đó tiệm cận xiên là $y = x + 1$."
     },
     {
+      imageUrl: "/exams/hongYen/de5_p1_c10.png",
       id: 10,
       part: 1,
       number: 10,
@@ -347,6 +353,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       id: 6,
       part: 3,
       number: 6,
+      imageUrl: "/exams/hongYen/de5_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Bài toán rào vườn chia ngăn",

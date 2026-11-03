@@ -17,6 +17,27 @@ export const EXAM_GIUA_KI_1: ExamData = {
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tính đơn điệu của hàm số",
       content: "Cho hàm số $y = f(x)$ có bảng biến thiên như sau. Hàm số đồng biến trên khoảng nào dưới đây?",
+      svgContent: `<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg" class="max-w-full h-auto">
+  <line x1="10" y1="40" x2="390" y2="40" stroke="#0f172a" stroke-width="1.5" />
+  <line x1="10" y1="75" x2="390" y2="75" stroke="#0f172a" stroke-width="1.5" />
+  <line x1="70" y1="10" x2="70" y2="110" stroke="#0f172a" stroke-width="1.5" />
+  <text x="35" y="30" font-family="Times New Roman, serif" font-size="16" font-style="italic" fill="#0f172a" text-anchor="middle">x</text>
+  <text x="35" y="62" font-family="Times New Roman, serif" font-size="16" font-style="italic" fill="#0f172a" text-anchor="middle">f'(x)</text>
+  <text x="35" y="100" font-family="Times New Roman, serif" font-size="16" font-style="italic" fill="#0f172a" text-anchor="middle">f(x)</text>
+  <text x="95" y="30" font-family="Times New Roman, serif" font-size="14" fill="#0f172a" text-anchor="middle">-∞</text>
+  <text x="180" y="30" font-family="Times New Roman, serif" font-size="15" fill="#0f172a" text-anchor="middle">-1</text>
+  <text x="270" y="30" font-family="Times New Roman, serif" font-size="15" fill="#0f172a" text-anchor="middle">1</text>
+  <text x="360" y="30" font-family="Times New Roman, serif" font-size="14" fill="#0f172a" text-anchor="middle">+∞</text>
+  <text x="140" y="62" font-family="Times New Roman, serif" font-size="16" fill="#0f172a" text-anchor="middle">-</text>
+  <text x="180" y="62" font-family="Times New Roman, serif" font-size="15" fill="#0f172a" text-anchor="middle">0</text>
+  <text x="225" y="62" font-family="Times New Roman, serif" font-size="16" fill="#0f172a" text-anchor="middle">+</text>
+  <text x="270" y="62" font-family="Times New Roman, serif" font-size="15" fill="#0f172a" text-anchor="middle">0</text>
+  <text x="315" y="62" font-family="Times New Roman, serif" font-size="16" fill="#0f172a" text-anchor="middle">-</text>
+  <text x="95" y="88" font-family="Times New Roman, serif" font-size="13" fill="#0f172a" text-anchor="middle">+∞</text>
+  <text x="180" y="105" font-family="Times New Roman, serif" font-size="14" fill="#0f172a" text-anchor="middle">-2</text>
+  <text x="270" y="88" font-family="Times New Roman, serif" font-size="14" fill="#0f172a" text-anchor="middle">4</text>
+  <text x="360" y="105" font-family="Times New Roman, serif" font-size="13" fill="#0f172a" text-anchor="middle">-∞</text>
+</svg>`,
       options: [
         { key: "A", text: "$(-1; 3)$" },
         { key: "B", text: "$(-\\infty; -1)$" },

@@ -12,6 +12,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
     {
       id: 1,
       part: 1,
+      imageUrl: "/exams/hongYen/de4_p1_c1.png",
       number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -30,6 +31,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
       id: 2,
       part: 1,
       number: 2,
+      imageUrl: "/exams/hongYen/de4_p1_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Cực trị của hàm số",
@@ -47,6 +49,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
       id: 3,
       part: 1,
       number: 3,
+      imageUrl: "/exams/hongYen/de4_p1_c3.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Điểm cực trị từ đồ thị hàm số",
@@ -125,6 +128,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
       id: 6,
       part: 1,
       number: 6,
+      imageUrl: "/exams/hongYen/de4_p1_c6.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Giá trị nhỏ nhất trên đoạn",
@@ -141,6 +145,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
     {
       id: 7,
       part: 1,
+      imageUrl: "/exams/hongYen/de4_p1_c7.png",
       number: 7,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -192,6 +197,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
     {
       id: 10,
       part: 1,
+      imageUrl: "/exams/hongYen/de4_p1_c10.png",
       number: 10,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -479,6 +485,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
     {
       id: 6,
       part: 3,
+      imageUrl: "/exams/hongYen/de4_p3_c2.png",
       number: 6,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",

@@ -10,6 +10,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
   tags: ["Giữa kì 1", "Toán 12B", "GV Lê Thị Hồng Yến", "Đề 7"],
   part1: [
     {
+      imageUrl: "/exams/hongYen/de7_p1_c1.png",
       id: 1,
       part: 1,
       number: 1,
@@ -27,6 +28,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       explanation: "Dựa vào bảng biến thiên, trên khoảng $(-2; 1)$ thì $f'(x) > 0$ và mũi tên đi lên, do đó hàm số đồng biến trên $(-2; 1)$."
     },
     {
+      imageUrl: "/exams/hongYen/de7_p1_c2.png",
       id: 2,
       part: 1,
       number: 2,
@@ -44,6 +46,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       explanation: "Đạo hàm $f'(x)$ đổi dấu từ âm sang dương khi đi qua $x = -1$ và $x = 4$. Trong các phương án đưa ra, $x = -1$ là điểm cực tiểu của hàm số."
     },
     {
+      imageUrl: "/exams/hongYen/de7_p1_c3.png",
       id: 3,
       part: 1,
       number: 3,
@@ -110,6 +113,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       explanation: "$y' = -3x^2 + 6x = -3x(x - 2) = 0 \\iff x = 0$ hoặc $x = 2$. Đạo hàm đổi dấu từ dương sang âm tại $x = 2$, nên $x = 2$ là điểm cực đại."
     },
     {
+      imageUrl: "/exams/hongYen/de7_p1_c6.png",
       id: 6,
       part: 1,
       number: 6,
@@ -127,6 +131,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       explanation: "Dựa vào bảng biến thiên, giá trị cao nhất trên đoạn $[-3; 1]$ là $f(0) = 5$."
     },
     {
+      imageUrl: "/exams/hongYen/de7_p1_c7.png",
       id: 7,
       part: 1,
       number: 7,
@@ -178,6 +183,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       explanation: "Ta có $\\frac{x^2 - 3x + 1}{x - 2} = x - 1 - \\frac{1}{x - 2}$. Khi $x \\to \\pm\\infty$, phần dư $-\\frac{1}{x - 2} \\to 0$. Vậy tiệm cận xiên là đường thẳng $y = x - 1$."
     },
     {
+      imageUrl: "/exams/hongYen/de7_p1_c10.png",
       id: 10,
       part: 1,
       number: 10,
@@ -378,6 +384,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       id: 6,
       part: 3,
       number: 6,
+      imageUrl: "/exams/hongYen/de7_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Bài toán rào đất hình chữ nhật giáp bờ sông",

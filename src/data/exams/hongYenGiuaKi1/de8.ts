@@ -10,6 +10,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
   tags: ["Giữa kì 1", "Toán 12B", "GV Lê Thị Hồng Yến", "Đề 8"],
   part1: [
     {
+      imageUrl: "/exams/hongYen/de8_p1_c1.png",
       id: 1,
       part: 1,
       number: 1,
@@ -27,6 +28,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       explanation: "Dựa vào bảng biến thiên, trên khoảng $(0; 3)$ thì $f'(x) < 0$ và mũi tên đi xuống, do đó hàm số nghịch biến trên $(0; 3)$."
     },
     {
+      imageUrl: "/exams/hongYen/de8_p1_c2.png",
       id: 2,
       part: 1,
       number: 2,
@@ -44,6 +46,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       explanation: "Đạo hàm $f'(x)$ đổi dấu 3 lần khi đi qua các nghiệm bội lẻ $x = -1, x = 1, x = 2$. Do đó hàm số có 3 điểm cực trị."
     },
     {
+      imageUrl: "/exams/hongYen/de8_p1_c3.png",
       id: 3,
       part: 1,
       number: 3,
@@ -111,6 +114,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       explanation: "$y' = x^2 - 4x + 3 = (x - 1)(x - 3) = 0 \\iff x = 1$ hoặc $x = 3$. Đạo hàm đổi dấu từ dương sang âm tại $x = 1$, nên $x = 1$ là điểm cực đại của hàm số."
     },
     {
+      imageUrl: "/exams/hongYen/de8_p1_c6.png",
       id: 6,
       part: 1,
       number: 6,
@@ -128,6 +132,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       explanation: "Dựa vào bảng biến thiên, giá trị nhỏ nhất của hàm số trên đoạn $[-1; 4]$ là $f(3) = -4$."
     },
     {
+      imageUrl: "/exams/hongYen/de8_p1_c7.png",
       id: 7,
       part: 1,
       number: 7,
@@ -179,6 +184,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       explanation: "Thực hiện phép chia tử cho mẫu: $\\frac{2x^2 + x - 2}{x - 1} = 2x + 3 + \\frac{1}{x - 1}$. Khi $x \\to \\pm\\infty$, $\\frac{1}{x - 1} \\to 0$. Tiệm cận xiên là đường thẳng $y = 2x + 3$."
     },
     {
+      imageUrl: "/exams/hongYen/de8_p1_c10.png",
       id: 10,
       part: 1,
       number: 10,
@@ -379,6 +385,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       id: 6,
       part: 3,
       number: 6,
+      imageUrl: "/exams/hongYen/de8_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Gập hộp nhôm vuông không nắp",

@@ -10,6 +10,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
   tags: ["Giữa kì 1", "Toán 12B", "GV Lê Thị Hồng Yến", "Đề 6"],
   part1: [
     {
+      imageUrl: "/exams/hongYen/de6_p1_c1.png",
       id: 1,
       part: 1,
       number: 1,
@@ -27,6 +28,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       explanation: "Dựa vào bảng xét dấu, đạo hàm $f'(x) < 0$ trên các khoảng $(-2; 0)$ và $(3; +\\infty)$. Do đó hàm số nghịch biến trên khoảng $(-2; 0)$."
     },
     {
+      imageUrl: "/exams/hongYen/de6_p1_c2.png",
       id: 2,
       part: 1,
       number: 2,
@@ -44,6 +46,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       explanation: "Đạo hàm $f'(x)$ đổi dấu từ dương sang âm khi đi qua $x = 2$, do đó hàm số đạt cực đại tại điểm $x = 2$."
     },
     {
+      imageUrl: "/exams/hongYen/de6_p1_c3.png",
       id: 3,
       part: 1,
       number: 3,
@@ -111,6 +114,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       explanation: "Đạo hàm $y' = 3x^2 - 12x + 9 = 3(x - 1)(x - 3) = 0 \\iff x = 1$ hoặc $x = 3$. Qua $x = 3$, đạo hàm đổi dấu từ âm sang dương nên $x = 3$ là điểm cực tiểu của hàm số."
     },
     {
+      imageUrl: "/exams/hongYen/de6_p1_c6.png",
       id: 6,
       part: 1,
       number: 6,
@@ -128,6 +132,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       explanation: "Dựa vào bảng biến thiên trên $[-2; 4]$, giá trị nhỏ nhất của hàm số là $\\min_{[-2; 4]} f(x) = f(0) = -5$."
     },
     {
+      imageUrl: "/exams/hongYen/de6_p1_c7.png",
       id: 7,
       part: 1,
       number: 7,
@@ -179,6 +184,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       explanation: "Chia tử cho mẫu: $\\frac{x^2 - x + 3}{x + 2} = x - 3 + \\frac{9}{x + 2}$. Vì $\\lim_{x \\to \\pm\\infty} \\frac{9}{x + 2} = 0$ nên tiệm cận xiên là $y = x - 3$."
     },
     {
+      imageUrl: "/exams/hongYen/de6_p1_c10.png",
       id: 10,
       part: 1,
       number: 10,
@@ -381,6 +387,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       id: 6,
       part: 3,
       number: 6,
+      imageUrl: "/exams/hongYen/de6_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Bài toán máng thoát nước mưa",

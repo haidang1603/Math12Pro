@@ -351,6 +351,15 @@ export const EXAM_GIUA_KI_1_DE3_HONG_YEN: ExamData = {
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Hàng rào",
       content: "PHẦN IV - CÂU 2 (TỰ LUẬN):\nMột khu đất hình chữ nhật giáp bờ sông thẳng có diện tích $800\\text{ m}^2$. Người ta rào 3 cạnh không giáp bờ sông. Tìm kích thước chiều rộng vuông góc với bờ sông để tổng chiều dài rào là ngắn nhất.",
+      svgContent: `<svg width="280" height="150" viewBox="0 0 280 150" xmlns="http://www.w3.org/2000/svg" class="max-w-full h-auto">
+  <line x1="20" y1="120" x2="260" y2="120" stroke="#0284c7" stroke-width="4" />
+  <text x="235" y="140" font-family="Times New Roman, serif" font-size="13" font-weight="bold" fill="#0284c7" text-anchor="middle">Bờ sông</text>
+  <path d="M 60 120 L 60 40 L 200 40 L 200 120" fill="#f0fdf4" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,4" />
+  <text x="45" y="85" font-family="Times New Roman, serif" font-size="15" font-style="italic" fill="#0f172a" text-anchor="middle">x</text>
+  <text x="215" y="85" font-family="Times New Roman, serif" font-size="15" font-style="italic" fill="#0f172a" text-anchor="middle">x</text>
+  <text x="130" y="30" font-family="Times New Roman, serif" font-size="15" font-style="italic" fill="#0f172a" text-anchor="middle">y</text>
+  <text x="130" y="85" font-family="Times New Roman, serif" font-size="14" fill="#15803d" text-anchor="middle">Khu đất rào</text>
+</svg>`,
       correctAnswer: "20",
       acceptableAnswers: ["20", "20m"],
       isEssay: true,

@@ -85,11 +85,11 @@ export default function TrueFalseQuestion({
             <img
               src={question.imageUrl}
               alt={`Hình minh họa câu ${question.number}`}
-              className="max-h-72 rounded-2xl object-contain border border-slate-200/90 shadow-2xs bg-white p-1"
+              className="max-h-72 rounded-2xl object-contain border border-slate-200/90 shadow-2xs bg-white p-2"
             />
           </div>
         )}
-        {question.svgContent && (
+        {!question.imageUrl && question.svgContent && (
           <div
             className="my-4 flex justify-center overflow-x-auto p-4 bg-white rounded-2xl border border-slate-200/80 shadow-2xs"
             dangerouslySetInnerHTML={{ __html: question.svgContent }}

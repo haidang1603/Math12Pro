@@ -351,6 +351,13 @@ export const EXAM_GIUA_KI_1_DE2_HONG_YEN: ExamData = {
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Máng nước",
       content: "PHẦN IV - CÂU 2 (TỰ LUẬN):\nMột tấm tôn dài có bề rộng $60\\text{ cm}$ uốn thành chiếc máng mặt cắt ngang hình chữ nhật hở trên, chiều cao mép gấp là $x\\text{ cm}$. Tìm $x$ để diện tích mặt cắt ngang lớn nhất.",
+      svgContent: `<svg width="280" height="150" viewBox="0 0 280 150" xmlns="http://www.w3.org/2000/svg" class="max-w-full h-auto">
+  <path d="M 50 30 L 50 110 L 230 110 L 230 30" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" />
+  <line x1="50" y1="30" x2="230" y2="30" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4" />
+  <text x="35" y="75" font-family="Times New Roman, serif" font-size="16" font-style="italic" fill="#0f172a" text-anchor="middle">x</text>
+  <text x="245" y="75" font-family="Times New Roman, serif" font-size="16" font-style="italic" fill="#0f172a" text-anchor="middle">x</text>
+  <text x="140" y="132" font-family="Times New Roman, serif" font-size="15" fill="#0f172a" text-anchor="middle">60 - 2x</text>
+</svg>`,
       correctAnswer: "15",
       acceptableAnswers: ["15", "15cm"],
       isEssay: true,
