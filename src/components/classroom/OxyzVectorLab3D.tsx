@@ -130,6 +130,27 @@ export default function OxyzVectorLab3D() {
     isDragging.current = false;
   };
 
+  // Touch drag handlers for mobile devices
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 0) return;
+    isDragging.current = true;
+    lastMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current || e.touches.length === 0) return;
+    const dx = e.touches[0].clientX - lastMousePos.current.x;
+    const dy = e.touches[0].clientY - lastMousePos.current.y;
+    lastMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+
+    setYaw((y) => (y + dx * 0.7) % 360);
+    setPitch((p) => Math.max(-80, Math.min(80, p + dy * 0.7)));
+  };
+
+  const handleTouchEnd = () => {
+    isDragging.current = false;
+  };
+
   // Preset Configurations
   const applyPreset = (presetName: string) => {
     if (presetName === "orthogonal") {
@@ -191,23 +212,23 @@ export default function OxyzVectorLab3D() {
         </div>
 
         {/* Quick Presets */}
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="text-[11px] text-slate-500 mr-1 hidden md:inline">Hình mẫu:</span>
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full py-1">
+          <span className="text-[11px] text-slate-500 mr-1 hidden md:inline shrink-0">Hình mẫu:</span>
           <button
             onClick={() => applyPreset("orthogonal")}
-            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             Tam giác Oxy
           </button>
           <button
             onClick={() => applyPreset("cube")}
-            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             Đường chéo hình hộp
           </button>
           <button
             onClick={() => applyPreset("pyramid")}
-            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             Hình chóp tam giác
           </button>
@@ -217,7 +238,7 @@ export default function OxyzVectorLab3D() {
               setPitch(25);
               setZoom(35);
             }}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer shrink-0"
             title="Đặt lại góc nhìn"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -232,19 +253,19 @@ export default function OxyzVectorLab3D() {
           {/* Controls Overlay Top */}
           <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
             <div className="flex items-center gap-1 bg-slate-900/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-slate-800 text-[11px] text-slate-300 font-mono">
-              <Move className="w-3 h-3 text-blue-400" />
-              <span>Kéo chuột để xoay 360°</span>
+              <Move className="w-3 h-3 text-blue-400 shrink-0" />
+              <span>Kéo chuột hoặc ngón tay để xoay 360°</span>
             </div>
-            <div className="bg-slate-900/90 backdrop-blur-md px-2 py-1 rounded-lg border border-slate-800 text-[10px] text-slate-400 font-mono">
+            <div className="bg-slate-900/90 backdrop-blur-md px-2 py-1 rounded-lg border border-slate-800 text-[10px] text-slate-400 font-mono hidden sm:block">
               Yaw: {Math.round(yaw)}° | Pitch: {Math.round(pitch)}°
             </div>
           </div>
 
           {/* Visibility Toggles Bottom Left */}
-          <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1.5 flex-wrap">
+          <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
             <button
               onClick={() => setShowGrid(!showGrid)}
-              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer ${
+              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 showGrid
                   ? "bg-blue-600/20 text-blue-300 border-blue-500/30"
                   : "bg-slate-900/80 text-slate-500 border-slate-800"
@@ -254,7 +275,7 @@ export default function OxyzVectorLab3D() {
             </button>
             <button
               onClick={() => setShowDropLines(!showDropLines)}
-              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer ${
+              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 showDropLines
                   ? "bg-orange-600/20 text-orange-300 border-orange-500/30"
                   : "bg-slate-900/80 text-slate-500 border-slate-800"
@@ -264,7 +285,7 @@ export default function OxyzVectorLab3D() {
             </button>
             <button
               onClick={() => setShowCrossProduct(!showCrossProduct)}
-              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer ${
+              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 showCrossProduct
                   ? "bg-purple-600/20 text-purple-300 border-purple-500/30"
                   : "bg-slate-900/80 text-slate-500 border-slate-800"
@@ -274,7 +295,7 @@ export default function OxyzVectorLab3D() {
             </button>
             <button
               onClick={() => setShowTriangleFace(!showTriangleFace)}
-              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer ${
+              className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 showTriangleFace
                   ? "bg-emerald-600/20 text-emerald-300 border-emerald-500/30"
                   : "bg-slate-900/80 text-slate-500 border-slate-800"
@@ -287,11 +308,14 @@ export default function OxyzVectorLab3D() {
           {/* SVG 3D Canvas */}
           <svg
             viewBox={`0 0 ${SVG_W} ${SVG_H}`}
-            className="w-full h-auto max-h-[380px] cursor-grab active:cursor-grabbing block"
+            className="w-full h-auto max-h-[380px] cursor-grab active:cursor-grabbing block touch-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             <defs>
               <marker

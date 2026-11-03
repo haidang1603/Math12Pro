@@ -343,6 +343,27 @@ export default function CubicGraphSimulator({
     }
   };
 
+  // Handle Touch Move for mobile inspection
+  const handleTouchMove = (e: React.TouchEvent<SVGSVGElement>) => {
+    if (!svgRef.current || e.touches.length === 0) return;
+    const touch = e.touches[0];
+    const rect = svgRef.current.getBoundingClientRect();
+    const clientX = touch.clientX - rect.left;
+    const clientY = touch.clientY - rect.top;
+
+    const svgX = (clientX / rect.width) * SVG_WIDTH;
+    const svgY = (clientY / rect.height) * SVG_HEIGHT;
+
+    const { x: mathX } = fromSvgCoords(svgX, svgY);
+    const mathY = evaluateY(mathX);
+
+    if (!isNaN(mathY) && isFinite(mathY)) {
+      setHoverCoord({ x: mathX, y: mathY });
+    } else {
+      setHoverCoord(null);
+    }
+  };
+
   const handleMouseLeave = () => {
     setHoverCoord(null);
   };
@@ -384,34 +405,36 @@ export default function CubicGraphSimulator({
 
         {/* Mode Toggle & Reset */}
         <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
-          <div className="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center text-xs font-semibold">
+          <div className="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center text-xs font-semibold overflow-x-auto no-scrollbar max-w-full">
             <button
               onClick={() => setActiveMode("custom")}
-              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
                 activeMode === "custom"
                   ? "bg-orange-600 text-white shadow-xs"
                   : "text-slate-400 hover:text-white"
               }`}
             >
               <Calculator className="w-3.5 h-3.5" />
-              <span>Nhập hàm số tự do f(x)</span>
+              <span className="hidden sm:inline">Nhập hàm số tự do f(x)</span>
+              <span className="sm:hidden">Hàm f(x)</span>
             </button>
             <button
               onClick={() => setActiveMode("cubic")}
-              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
                 activeMode === "cubic"
                   ? "bg-orange-600 text-white shadow-xs"
                   : "text-slate-400 hover:text-white"
               }`}
             >
               <Sliders className="w-3.5 h-3.5" />
-              <span>Họ hàm bậc ba (a, b, c, d)</span>
+              <span className="hidden sm:inline">Họ hàm bậc ba (a, b, c, d)</span>
+              <span className="sm:hidden">Hàm bậc 3</span>
             </button>
           </div>
 
           <button
             onClick={handleReset}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer border border-slate-700/80 shadow-xs"
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer border border-slate-700/80 shadow-xs shrink-0"
             title="Đặt lại hàm số ban đầu"
           >
             <RotateCcw className="w-4 h-4" />
@@ -454,41 +477,41 @@ export default function CubicGraphSimulator({
           </div>
 
           {/* Quick Presets for Common 12th Grade Functions */}
-          <div className="flex items-center gap-1.5 flex-wrap pt-1 border-t border-slate-900">
-            <span className="text-[11px] text-slate-500 mr-1">Hàm số mẫu Toán 12:</span>
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 border-t border-slate-900">
+            <span className="text-[11px] text-slate-500 mr-1 shrink-0">Hàm số mẫu:</span>
             <button
               onClick={() => applyPresetFunction("x^3 - 3*x + 2")}
-              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-800 hover:text-white cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-800 hover:text-white cursor-pointer whitespace-nowrap shrink-0"
             >
               Bậc 3: y = x³ - 3x + 2
             </button>
             <button
               onClick={() => applyPresetFunction("-x^3 + 3*x")}
-              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-800 hover:text-white cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-800 hover:text-white cursor-pointer whitespace-nowrap shrink-0"
             >
               Bậc 3 (a &lt; 0): y = -x³ + 3x
             </button>
             <button
               onClick={() => applyPresetFunction("x^4 - 2*x^2 + 1")}
-              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-800 hover:text-white cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-slate-300 border border-slate-800 hover:text-white cursor-pointer whitespace-nowrap shrink-0"
             >
               Trùng phương: y = x⁴ - 2x² + 1
             </button>
             <button
               onClick={() => applyPresetFunction("(2*x + 1)/(x - 1)")}
-              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-cyan-300 border border-cyan-900/40 hover:text-white cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-cyan-300 border border-cyan-900/40 hover:text-white cursor-pointer whitespace-nowrap shrink-0"
             >
               Nhất biến: y = (2x+1)/(x-1)
             </button>
             <button
               onClick={() => applyPresetFunction("(x^2 - 2*x + 2)/(x - 1)")}
-              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-purple-300 border border-purple-900/40 hover:text-white cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-purple-300 border border-purple-900/40 hover:text-white cursor-pointer whitespace-nowrap shrink-0"
             >
               Bậc 2/1: y = (x²-2x+2)/(x-1)
             </button>
             <button
               onClick={() => applyPresetFunction("sin(x)")}
-              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-emerald-300 border border-emerald-900/40 hover:text-white cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-semibold text-emerald-300 border border-emerald-900/40 hover:text-white cursor-pointer whitespace-nowrap shrink-0"
             >
               Lượng giác: y = sin(x)
             </button>
@@ -544,9 +567,11 @@ export default function CubicGraphSimulator({
           <svg
             ref={svgRef}
             viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
-            className="w-full h-auto max-h-[360px] cursor-crosshair select-none block"
+            className="w-full h-auto max-h-[360px] cursor-crosshair select-none block touch-none"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleMouseLeave}
           >
             <defs>
               <clipPath id="graphClip">

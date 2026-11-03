@@ -86,6 +86,7 @@ export default function MathLabStudio({
 
   // Navigation tabs within MathLab
   const [activeTab, setActiveTab] = useState<"functions" | "table" | "geometry" | "image" | "settings">("functions");
+  const [mobileViewMode, setMobileViewMode] = useState<"controls" | "graph" | "both">("both");
 
   // Viewport Settings
   const [xMin, setXMin] = useState<number>(-6);
@@ -214,6 +215,20 @@ export default function MathLabStudio({
     const rect = svgRef.current.getBoundingClientRect();
     const clientX = e.clientX - rect.left;
     const clientY = e.clientY - rect.top;
+
+    const svgX = (clientX / rect.width) * SVG_WIDTH;
+    const svgY = (clientY / rect.height) * SVG_HEIGHT;
+
+    setHoverCoord(fromSvgCoords(svgX, svgY));
+  };
+
+  // Handle Touch Move for live mobile inspection
+  const handleTouchMove = (e: React.TouchEvent<SVGSVGElement>) => {
+    if (!svgRef.current || e.touches.length === 0) return;
+    const touch = e.touches[0];
+    const rect = svgRef.current.getBoundingClientRect();
+    const clientX = touch.clientX - rect.left;
+    const clientY = touch.clientY - rect.top;
 
     const svgX = (clientX / rect.width) * SVG_WIDTH;
     const svgY = (clientY / rect.height) * SVG_HEIGHT;
@@ -419,15 +434,53 @@ export default function MathLabStudio({
           </div>
         )}
 
+        {/* Mobile View Switcher (< lg) */}
+        <div className="lg:hidden flex items-center justify-center p-2 bg-slate-950 border-b border-slate-800 shrink-0">
+          <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+            <button
+              onClick={() => setMobileViewMode("controls")}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                mobileViewMode === "controls"
+                  ? "bg-orange-600 text-white shadow-xs font-bold"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              1. Công cụ & Hàm số
+            </button>
+            <button
+              onClick={() => setMobileViewMode("graph")}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                mobileViewMode === "graph"
+                  ? "bg-orange-600 text-white shadow-xs font-bold"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              2. Đồ thị Canvas Oxy
+            </button>
+            <button
+              onClick={() => setMobileViewMode("both")}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                mobileViewMode === "both"
+                  ? "bg-blue-600 text-white shadow-xs font-bold"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              Xem cả hai
+            </button>
+          </div>
+        </div>
+
         {/* ========================================================================= */}
         {/* MAIN SPLIT WORKSPACE: LEFT TOOLS (40%) + RIGHT GRAPH CANVAS (60%) */}
         {/* ========================================================================= */}
-        <div className="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
+        <div className="flex-1 overflow-y-auto lg:overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-0">
           
           {/* LEFT CONTROLS PANEL (5 COLS) */}
-          <div className="lg:col-span-5 bg-slate-900/90 border-r border-slate-800 flex flex-col overflow-hidden">
+          <div className={`lg:col-span-5 bg-slate-900/90 border-r border-slate-800 flex-col overflow-y-auto lg:overflow-hidden ${
+            mobileViewMode === "graph" ? "hidden lg:flex" : "flex"
+          }`}>
             {/* Tool Tabs */}
-            <div className="flex items-center gap-1 bg-slate-950 p-1.5 border-b border-slate-800 text-xs overflow-x-auto select-none">
+            <div className="flex items-center gap-1 bg-slate-950 p-1.5 border-b border-slate-800 text-xs overflow-x-auto no-scrollbar select-none">
               <button
                 onClick={() => setActiveTab("functions")}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer whitespace-nowrap ${
@@ -1036,9 +1089,11 @@ export default function MathLabStudio({
           </div>
 
           {/* RIGHT GRAPH WORKSPACE (7 COLS) */}
-          <div className="lg:col-span-7 bg-slate-950 p-3 sm:p-5 flex flex-col justify-between relative overflow-hidden">
+          <div className={`lg:col-span-7 bg-slate-950 p-3 sm:p-5 flex-col justify-between relative overflow-hidden ${
+            mobileViewMode === "controls" ? "hidden lg:flex" : "flex"
+          }`}>
             {/* Top Info Bar */}
-            <div className="flex items-center justify-between gap-2 z-10 mb-2">
+            <div className="flex items-center justify-between gap-2 z-10 mb-2 flex-wrap">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300 shadow-sm">
                   Oxy: [{xMin}, {xMax}] × [{yMin}, {yMax}]
@@ -1052,14 +1107,14 @@ export default function MathLabStudio({
               </div>
 
               {/* Functions Legend Pill */}
-              <div className="flex items-center gap-2 overflow-x-auto max-w-[280px]">
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar max-w-full">
                 {functions.filter((f) => f.visible).map((fn) => (
                   <span
                     key={fn.id}
-                    className="flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800"
+                    className="flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 whitespace-nowrap"
                     style={{ color: fn.color }}
                   >
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: fn.color }} />
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: fn.color }} />
                     {fn.expression}
                   </span>
                 ))}
@@ -1067,13 +1122,15 @@ export default function MathLabStudio({
             </div>
 
             {/* SVG Interactive Canvas */}
-            <div className="flex-1 flex items-center justify-center relative min-h-[360px] overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950 shadow-inner">
+            <div className="flex-1 flex items-center justify-center relative min-h-[300px] sm:min-h-[360px] overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950 shadow-inner">
               <svg
                 ref={svgRef}
                 viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
-                className="w-full h-full max-h-[440px] cursor-crosshair select-none block"
+                className="w-full h-full max-h-[440px] cursor-crosshair select-none block touch-none"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={() => setHoverCoord(null)}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={() => setHoverCoord(null)}
               >
                 <defs>
                   <clipPath id="studioGraphClip">

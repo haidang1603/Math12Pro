@@ -154,7 +154,7 @@ export default function ChapterPracticeHub({
               </nav>
 
               {/* Lesson Title (prominent, wraps gracefully) */}
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
+              <h2 className="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
                 {chapter.title}
               </h2>
 
@@ -183,7 +183,7 @@ export default function ChapterPracticeHub({
             <button
               onClick={onClose}
               aria-label="Đóng phòng học"
-              className="w-11 h-11 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors shrink-0 border border-slate-700 cursor-pointer shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors shrink-0 border border-slate-700 cursor-pointer shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
               <X className="w-5 h-5" />
             </button>
@@ -200,14 +200,15 @@ export default function ChapterPracticeHub({
               role="tab"
               aria-selected={activeTab === "theory"}
               onClick={() => setActiveTab("theory")}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 shrink-0 ${
                 activeTab === "theory"
                   ? "bg-blue-600 text-white shadow-sm"
                   : "bg-white text-slate-700 hover:text-blue-700 hover:bg-slate-50 border border-slate-200"
               }`}
             >
               <BookOpen className="w-4 h-4 shrink-0" />
-              <span>1. Lý thuyết & Công cụ</span>
+              <span className="hidden sm:inline">1. Lý thuyết & Mô phỏng</span>
+              <span className="sm:hidden">1. Lý thuyết & Lab</span>
             </button>
 
             {/* Tab 2: Study Mode */}
@@ -215,14 +216,15 @@ export default function ChapterPracticeHub({
               role="tab"
               aria-selected={activeTab === "study"}
               onClick={() => setActiveTab("study")}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-orange-500 ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-orange-500 shrink-0 ${
                 activeTab === "study"
                   ? "bg-orange-500 text-white shadow-sm"
                   : "bg-white text-slate-700 hover:text-orange-700 hover:bg-slate-50 border border-slate-200"
               }`}
             >
               <HelpCircle className="w-4 h-4 shrink-0" />
-              <span>2. Luyện tập phân dạng</span>
+              <span className="hidden sm:inline">2. Luyện tập phân dạng</span>
+              <span className="sm:hidden">2. Luyện tập</span>
               <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-black/10 font-mono">
                 {chapterQuestions.length}
               </span>
@@ -233,14 +235,15 @@ export default function ChapterPracticeHub({
               role="tab"
               aria-selected={activeTab === "test"}
               onClick={() => setActiveTab("test")}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-slate-800 ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-slate-800 shrink-0 ${
                 activeTab === "test"
                   ? "bg-slate-900 text-white shadow-sm"
                   : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200"
               }`}
             >
               <Award className="w-4 h-4 shrink-0" />
-              <span>3. Đề kiểm tra chương (45p)</span>
+              <span className="hidden sm:inline">3. Đề kiểm tra chương (45p)</span>
+              <span className="sm:hidden">3. Kiểm tra 45p</span>
             </button>
           </nav>
 

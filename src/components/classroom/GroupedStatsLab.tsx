@@ -236,29 +236,29 @@ export default function GroupedStatsLab() {
         </div>
 
         {/* Action Presets */}
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="text-[11px] text-slate-500 mr-1 hidden md:inline">Mẫu thực tế:</span>
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full text-xs py-1">
+          <span className="text-[11px] text-slate-500 mr-1 hidden md:inline shrink-0">Mẫu thực tế:</span>
           <button
             onClick={() => applyPreset("scores")}
-            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             Điểm thi Toán 12
           </button>
           <button
             onClick={() => applyPreset("running")}
-            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             Thời gian chạy 100m
           </button>
           <button
             onClick={() => applyPreset("income")}
-            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-300 transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             Thu nhập khảo sát
           </button>
           <button
             onClick={() => setShowCsvBox(!showCsvBox)}
-            className="px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+            className="px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer whitespace-nowrap shrink-0"
           >
             <FileSpreadsheet className="w-3.5 h-3.5" />
             <span>Dán CSV</span>

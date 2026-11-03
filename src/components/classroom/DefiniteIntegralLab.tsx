@@ -194,28 +194,29 @@ export default function DefiniteIntegralLab() {
         </div>
 
         {/* Mode Selector */}
-        <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-indigo-900 text-xs font-semibold">
+        <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-indigo-900 text-xs font-semibold overflow-x-auto no-scrollbar max-w-full">
           <button
             onClick={() => setActiveMode("calculator")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg transition-all cursor-pointer shrink-0 ${
               activeMode === "calculator"
-                ? "bg-indigo-600 text-white shadow-xs"
+                ? "bg-indigo-600 text-white shadow-xs font-bold"
                 : "text-slate-400 hover:text-white"
             }`}
           >
             <Calculator className="w-3.5 h-3.5" />
-            <span>Mô phỏng Tích phân & Diện tích</span>
+            <span className="hidden sm:inline">Mô phỏng Tích phân & Diện tích</span>
+            <span className="sm:hidden">Tích phân & S</span>
           </button>
           <button
             onClick={() => setActiveMode("flashcard")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg transition-all cursor-pointer shrink-0 ${
               activeMode === "flashcard"
-                ? "bg-indigo-600 text-white shadow-xs"
+                ? "bg-indigo-600 text-white shadow-xs font-bold"
                 : "text-slate-400 hover:text-white"
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Flashcard Công thức ({cardIndex + 1}/{FORMULA_FLASHCARDS.length})</span>
+            <span>Flashcard ({cardIndex + 1}/{FORMULA_FLASHCARDS.length})</span>
           </button>
         </div>
       </div>
@@ -224,29 +225,29 @@ export default function DefiniteIntegralLab() {
       {activeMode === "calculator" && (
         <div className="space-y-4">
           {/* Quick Presets */}
-          <div className="flex items-center gap-2 flex-wrap text-xs">
-            <span className="text-slate-400 text-[11px]">Hàm mẫu:</span>
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar max-w-full text-xs py-1">
+            <span className="text-slate-400 text-[11px] shrink-0">Hàm mẫu:</span>
             <button
               onClick={() => applyPreset("parabola")}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer whitespace-nowrap shrink-0"
             >
               f(x) = x² - 2x [0, 3]
             </button>
             <button
               onClick={() => applyPreset("sine")}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer whitespace-nowrap shrink-0"
             >
               f(x) = sin(x) [0, π]
             </button>
             <button
               onClick={() => applyPreset("sqrt")}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer whitespace-nowrap shrink-0"
             >
               f(x) = √x [0, 4]
             </button>
             <button
               onClick={() => applyPreset("cubic")}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium cursor-pointer whitespace-nowrap shrink-0"
             >
               f(x) = x³ - 3x [-1, 2]
             </button>

@@ -239,6 +239,28 @@ export default function SpatialGeometry3DLab() {
     isDragging.current = false;
   };
 
+  // Touch drag handlers for 360 rotation on mobile
+  const handleTouchStart = (e: React.TouchEvent<SVGSVGElement>) => {
+    if (e.touches.length === 0) return;
+    isDragging.current = true;
+    lastMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<SVGSVGElement>) => {
+    if (!isDragging.current || e.touches.length === 0) return;
+    const dx = e.touches[0].clientX - lastMousePos.current.x;
+    const dy = e.touches[0].clientY - lastMousePos.current.y;
+
+    setYaw((prev) => (prev + dx * 0.7) % 360);
+    setPitch((prev) => Math.max(-85, Math.min(85, prev + dy * 0.7)));
+
+    lastMousePos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+
+  const handleTouchEnd = () => {
+    isDragging.current = false;
+  };
+
   // Generate Vertices & Edges for each Solid
   const solid3DData = useMemo(() => {
     const a = baseA;
@@ -590,11 +612,11 @@ export default function SpatialGeometry3DLab() {
       {activeTab === "solids" && (
         <div className="space-y-4">
           {/* Shape Selector Bar */}
-          <div className="flex items-center gap-1.5 flex-wrap text-xs">
-            <span className="text-slate-400 text-[11px] mr-1">Khối hình mẫu:</span>
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full text-xs py-1">
+            <span className="text-slate-400 text-[11px] mr-1 shrink-0">Khối hình mẫu:</span>
             <button
               onClick={() => setShapeType("SPHERE")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                 shapeType === "SPHERE"
                   ? "bg-amber-500 text-slate-950 shadow-md"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -604,7 +626,7 @@ export default function SpatialGeometry3DLab() {
             </button>
             <button
               onClick={() => setShapeType("PYRAMID_QUAD")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 shapeType === "PYRAMID_QUAD"
                   ? "bg-cyan-600 text-white"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -614,7 +636,7 @@ export default function SpatialGeometry3DLab() {
             </button>
             <button
               onClick={() => setShapeType("PYRAMID_TRI")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 shapeType === "PYRAMID_TRI"
                   ? "bg-cyan-600 text-white"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -624,7 +646,7 @@ export default function SpatialGeometry3DLab() {
             </button>
             <button
               onClick={() => setShapeType("CUBOID")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 shapeType === "CUBOID"
                   ? "bg-cyan-600 text-white"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -634,7 +656,7 @@ export default function SpatialGeometry3DLab() {
             </button>
             <button
               onClick={() => setShapeType("PRISM_TRI")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 shapeType === "PRISM_TRI"
                   ? "bg-cyan-600 text-white"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -644,7 +666,7 @@ export default function SpatialGeometry3DLab() {
             </button>
             <button
               onClick={() => setShapeType("CONE")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 shapeType === "CONE"
                   ? "bg-cyan-600 text-white"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -654,7 +676,7 @@ export default function SpatialGeometry3DLab() {
             </button>
             <button
               onClick={() => setShapeType("CYLINDER")}
-              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                 shapeType === "CYLINDER"
                   ? "bg-cyan-600 text-white"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -755,11 +777,14 @@ export default function SpatialGeometry3DLab() {
               {/* 3D SVG Canvas */}
               <svg
                 viewBox={`0 0 ${SVG_W} ${SVG_H}`}
-                className="w-full h-auto max-h-[380px] cursor-grab active:cursor-grabbing block"
+                className="w-full h-auto max-h-[380px] cursor-grab active:cursor-grabbing block touch-none"
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               >
                 <defs>
                   {/* Sphere 3D Realistic Gradient */}

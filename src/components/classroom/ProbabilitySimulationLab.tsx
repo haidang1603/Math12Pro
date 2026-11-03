@@ -124,12 +124,12 @@ export default function ProbabilitySimulationLab() {
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+        <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-xs font-semibold overflow-x-auto no-scrollbar max-w-full">
           <button
             onClick={() => setActiveTab("experiment")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
               activeTab === "experiment"
-                ? "bg-cyan-600 text-white shadow-xs"
+                ? "bg-cyan-600 text-white shadow-xs font-bold"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -138,14 +138,14 @@ export default function ProbabilitySimulationLab() {
           </button>
           <button
             onClick={() => setActiveTab("bayes")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
               activeTab === "bayes"
-                ? "bg-cyan-600 text-white shadow-xs"
+                ? "bg-cyan-600 text-white shadow-xs font-bold"
                 : "text-slate-400 hover:text-white"
             }`}
           >
             <GitFork className="w-3.5 h-3.5" />
-            <span>Sơ Đồ Cây & Công Thức Bayes</span>
+            <span>Sơ Đồ Cây & Bayes</span>
           </button>
         </div>
       </div>
@@ -158,11 +158,11 @@ export default function ProbabilitySimulationLab() {
           {/* Controls Bar */}
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
             {/* Experiment selector (6 cols) */}
-            <div className="sm:col-span-6 flex items-center gap-2 flex-wrap text-xs">
-              <span className="text-slate-400 text-[11px]">Phép thử:</span>
+            <div className="sm:col-span-6 flex items-center gap-2 overflow-x-auto no-scrollbar max-w-full text-xs py-1">
+              <span className="text-slate-400 text-[11px] shrink-0">Phép thử:</span>
               <button
                 onClick={() => setSimType("DICE_EVEN")}
-                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                   simType === "DICE_EVEN"
                     ? "bg-cyan-600 text-white"
                     : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -172,7 +172,7 @@ export default function ProbabilitySimulationLab() {
               </button>
               <button
                 onClick={() => setSimType("DICE_GTE5")}
-                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                   simType === "DICE_GTE5"
                     ? "bg-cyan-600 text-white"
                     : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -182,7 +182,7 @@ export default function ProbabilitySimulationLab() {
               </button>
               <button
                 onClick={() => setSimType("COIN_HEADS")}
-                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                   simType === "COIN_HEADS"
                     ? "bg-cyan-600 text-white"
                     : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -192,7 +192,7 @@ export default function ProbabilitySimulationLab() {
               </button>
               <button
                 onClick={() => setSimType("DICE_SUM7")}
-                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
                   simType === "DICE_SUM7"
                     ? "bg-cyan-600 text-white"
                     : "bg-slate-800 text-slate-300 hover:bg-slate-700"
