@@ -1085,7 +1085,7 @@ export default function ExamResultDetailView({
                 Bạn muốn luyện tập thêm để cải thiện điểm số?
               </h4>
               <p className="text-xs text-blue-800 leading-relaxed">
-                Hệ thống có kho đề thi thử tốt nghiệp, đề các sở giáo dục và bộ 10 đề thi giữa kì chọn lọc.
+                Hệ thống có kho đề thi thử tốt nghiệp, đề các sở giáo dục và bộ đề thi giữa kì I cô Hồng Yến (từ Đề 04 đến Đề 10).
               </p>
             </div>
 
