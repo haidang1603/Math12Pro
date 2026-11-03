@@ -29,7 +29,7 @@ import { Chapter, TextbookSeries, MistakeItem } from "@/types/learning";
 import { ExamUserAnswers, ExamResult, MilestoneType, ExamAttemptRecord, ExamData } from "@/types/exam";
 import { UserProfile } from "@/types/user";
 import { CHAPTERS_DATA } from "@/data/chaptersData";
-import { EXAMS_BY_MILESTONE, MOCK_EXAM_2025 } from "@/data/mockExamData";
+import { EXAMS_BY_MILESTONE, MOCK_EXAM_2025, ALL_DEFAULT_OFFICIAL_EXAMS } from "@/data/mockExamData";
 import { calculateExamResult, getExamScoreStructure } from "@/utils/scoring";
 import {
   getStoredMistakes,
@@ -100,7 +100,7 @@ export default function Home() {
     setChapters(getChaptersWithDynamicMastery(CHAPTERS_DATA));
     const custom = getCustomExams();
     setCustomExams(custom);
-    setAllExamsList([...custom, ...Object.values(EXAMS_BY_MILESTONE)]);
+    setAllExamsList([...custom, ...ALL_DEFAULT_OFFICIAL_EXAMS]);
   }, []);
 
   // Supabase Google OAuth Session & State Sync Listener
@@ -203,12 +203,12 @@ export default function Home() {
   const [, setCustomExams] = useState<ExamData[]>([]);
 
   const getAllCombinedExams = () => {
-    const official = Object.values(EXAMS_BY_MILESTONE);
+    const official = ALL_DEFAULT_OFFICIAL_EXAMS;
     const custom = getCustomExams();
     return [...custom, ...official];
   };
 
-  const [allExamsList, setAllExamsList] = useState<ExamData[]>(() => Object.values(EXAMS_BY_MILESTONE));
+  const [allExamsList, setAllExamsList] = useState<ExamData[]>(() => ALL_DEFAULT_OFFICIAL_EXAMS);
 
   const refreshExams = () => {
     const updatedCustom = getCustomExams();

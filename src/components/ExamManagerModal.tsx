@@ -146,7 +146,7 @@ export default function ExamManagerModal({
                 filterType === "OFFICIAL" ? "bg-blue-600 text-white" : "text-slate-400 hover:bg-slate-800"
               }`}
             >
-              Đề chuẩn Bộ GD&ĐT ({visibleExams.filter((e) => !e.isCustom).length})
+              Đề thi thử & Tốt nghiệp ({visibleExams.filter((e) => !e.isCustom).length})
             </button>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function ExamManagerModal({
                   className="p-4 rounded-xl bg-slate-800/40 hover:bg-slate-800/70 border border-slate-700/60 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
                 >
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-bold text-white text-sm group-hover:text-blue-400 transition-colors">
                         {exam.title}
                       </h3>
@@ -192,7 +192,12 @@ export default function ExamManagerModal({
                         </span>
                       ) : (
                         <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                          Chuẩn Bộ GD&ĐT
+                          Chuẩn GDPT 2018
+                        </span>
+                      )}
+                      {exam.authorName && (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-800 text-slate-300 border border-slate-700">
+                          {exam.authorName}
                         </span>
                       )}
                     </div>
