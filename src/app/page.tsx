@@ -53,6 +53,7 @@ import TrueFalseQuestion from "@/components/TrueFalseQuestion";
 import ShortAnswerQuestion from "@/components/ShortAnswerQuestion";
 import RadarAnalytics from "@/components/RadarAnalytics";
 import ChapterPracticeHub from "@/components/ChapterPracticeHub";
+import ExamResultDetailView from "@/components/ExamResultDetailView";
 import QuickQuizModal from "@/components/QuickQuizModal";
 import MistakeNotebookModal from "@/components/MistakeNotebookModal";
 import LiveArenaModal from "@/components/LiveArenaModal";
@@ -281,7 +282,7 @@ export default function Home() {
     setExam(EXAMS_BY_MILESTONE[attempt.milestone] || MOCK_EXAM_2025);
     setAnswers(attempt.answers);
     setExamResult(attempt.result);
-    setCurrentTab("analytics");
+    setCurrentTab("exam");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -346,7 +347,7 @@ export default function Home() {
     setMistakesList(getStoredMistakes());
     setChapters(getChaptersWithDynamicMastery(CHAPTERS_DATA));
     setExamHistoryCount(getExamHistory().length);
-    setCurrentTab("analytics");
+    setCurrentTab("exam");
 
     if (result.totalScore >= 7.0) {
       try {
@@ -718,7 +719,21 @@ export default function Home() {
         {/* TAB 2: HỆ THỐNG PHÒNG THI THỬ THEO 4 GIAI ĐOẠN (MOCK EXAM ROOM) */}
         {/* ========================================================================= */}
         {currentTab === "exam" && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6 animate-in fade-in duration-300">
+          examResult ? (
+            <ExamResultDetailView
+              exam={exam}
+              result={examResult}
+              answers={answers}
+              onRetakeExam={handleResetExam}
+              onViewRadarAnalytics={() => {
+                setCurrentTab("analytics");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              onOpenExamManager={() => setIsExamManagerOpen(true)}
+              onAddMistake={handleAddMistake}
+            />
+          ) : (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6 animate-in fade-in duration-300">
             {/* 4 Exam Milestones Tabs */}
             <div className="bg-white rounded-3xl border border-slate-200/90 p-5 shadow-xs space-y-4">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -1151,7 +1166,8 @@ export default function Home() {
               </div>
             );
           })()}
-          </div>
+            </div>
+          )
         )}
 
         {/* ========================================================================= */}
@@ -1197,6 +1213,16 @@ export default function Home() {
                           {examResult.timeSpentSeconds % 60} giây
                         </strong>
                       </p>
+                      <button
+                        onClick={() => {
+                          setCurrentTab("exam");
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        className="mt-3 px-3.5 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs inline-flex items-center gap-1.5 cursor-pointer shadow-md transition-all"
+                      >
+                        <BookOpen className="w-3.5 h-3.5" />
+                        <span>Xem trang đầy đủ đáp án & lời giải chi tiết</span>
+                      </button>
                     </div>
 
                     {/* Total Score Display Badge */}

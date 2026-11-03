@@ -35,3 +35,4 @@ export const HONG_YEN_GIUA_KI_1_EXAMS: ExamData[] = [
   EXAM_GIUA_KI_1_DE9_HONG_YEN,
   EXAM_GIUA_KI_1_DE10_HONG_YEN,
 ];
+
