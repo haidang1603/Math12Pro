@@ -134,13 +134,20 @@ export default function TrueFalseQuestion({
                     type="button"
                     disabled={isReviewMode}
                     onClick={() => onAnswerChange(stmt.key, true)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                      val === true
-                        ? "bg-blue-600 text-white shadow-xs"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                      isReviewMode
+                        ? stmt.correct === true
+                          ? "bg-emerald-600 text-white ring-2 ring-emerald-400 shadow-xs font-black cursor-default"
+                          : val === true
+                          ? "bg-rose-100 text-rose-800 border border-rose-300 line-through cursor-default"
+                          : "bg-slate-100 text-slate-400 opacity-60 cursor-default"
+                        : val === true
+                        ? "bg-blue-600 text-white shadow-xs cursor-pointer"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer"
                     }`}
                   >
                     <span>Đúng</span>
+                    {isReviewMode && stmt.correct === true && <CheckCircle2 className="w-3.5 h-3.5" />}
                   </button>
 
                   {/* Button Sai */}
@@ -148,27 +155,38 @@ export default function TrueFalseQuestion({
                     type="button"
                     disabled={isReviewMode}
                     onClick={() => onAnswerChange(stmt.key, false)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                      val === false
-                        ? "bg-blue-600 text-white shadow-xs"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                      isReviewMode
+                        ? stmt.correct === false
+                          ? "bg-emerald-600 text-white ring-2 ring-emerald-400 shadow-xs font-black cursor-default"
+                          : val === false
+                          ? "bg-rose-100 text-rose-800 border border-rose-300 line-through cursor-default"
+                          : "bg-slate-100 text-slate-400 opacity-60 cursor-default"
+                        : val === false
+                        ? "bg-blue-600 text-white shadow-xs cursor-pointer"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer"
                     }`}
                   >
                     <span>Sai</span>
+                    {isReviewMode && stmt.correct === false && <CheckCircle2 className="w-3.5 h-3.5" />}
                   </button>
 
                   {/* Review Mode Indicator */}
                   {isReviewMode && (
-                    <div className="flex items-center gap-1 ml-2">
+                    <div className="flex items-center gap-1.5 ml-2">
                       {isThisStatementCorrect ? (
                         <span className="flex items-center gap-1 text-emerald-600 text-xs font-bold">
-                          <CheckCircle2 className="w-4 h-4" />
-                          Đúng
+                          <CheckCircle2 className="w-4 h-4 shrink-0" />
+                          <span>Chính xác ({stmt.correct ? "Đúng" : "Sai"})</span>
+                        </span>
+                      ) : val === undefined ? (
+                        <span className="text-xs text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                          Chưa làm • Đáp án: <strong>{stmt.correct ? "Đúng" : "Sai"}</strong>
                         </span>
                       ) : (
                         <span className="flex items-center gap-1 text-rose-600 text-xs font-bold">
-                          <XCircle className="w-4 h-4" />
-                          Sai (Đ/A: {stmt.correct ? "Đúng" : "Sai"})
+                          <XCircle className="w-4 h-4 shrink-0" />
+                          <span>Bạn chọn {val ? "Đúng" : "Sai"} • Đáp án: <strong className="text-emerald-700 underline">{stmt.correct ? "Đúng" : "Sai"}</strong></span>
                         </span>
                       )}
                     </div>

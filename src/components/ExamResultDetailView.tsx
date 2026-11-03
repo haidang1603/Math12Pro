@@ -565,22 +565,47 @@ export default function ExamResultDetailView({
                           {q.correctCount}/4 ý đúng
                         </span>
                       </div>
-                      <div className="grid grid-cols-4 gap-1 text-[10px] font-mono font-bold">
-                        {q.statementDetails.map((st) => (
-                          <span
-                            key={st.key}
-                            className={`py-0.5 text-center rounded ${
-                              st.isRight
-                                ? "bg-emerald-500 text-white"
-                                : st.userVal !== undefined
-                                ? "bg-rose-500 text-white"
-                                : "bg-slate-200 text-slate-600"
-                            }`}
-                            title={`Ý ${st.key}: Bạn chọn [${st.userVal === true ? "Đúng" : st.userVal === false ? "Sai" : "Chưa làm"}], Đ/A: [${st.correctVal ? "Đúng" : "Sai"}]`}
-                          >
-                            {st.key.toUpperCase()}
-                          </span>
-                        ))}
+                      <div className="grid grid-cols-4 gap-1.5 text-xs font-mono font-bold mt-1">
+                        {q.statementDetails.map((st) => {
+                          const correctLetter = st.correctVal ? "Đ" : "S";
+                          const userLetter = st.userVal === true ? "Đ" : st.userVal === false ? "S" : "—";
+                          return (
+                            <div
+                              key={st.key}
+                              className={`py-1 px-0.5 text-center rounded-lg border flex flex-col items-center justify-center transition-all ${
+                                st.isRight
+                                  ? "bg-emerald-500 text-white border-emerald-600 shadow-2xs"
+                                  : st.userVal !== undefined
+                                  ? "bg-rose-500 text-white border-rose-600 shadow-2xs"
+                                  : "bg-slate-100 text-slate-700 border-slate-200"
+                              }`}
+                              title={`Ý ${st.key}): Bạn chọn [${st.userVal === true ? "Đúng" : st.userVal === false ? "Sai" : "Chưa làm"}], Đáp án đúng: [${st.correctVal ? "Đúng" : "Sai"}]`}
+                            >
+                              <span className="text-[9px] uppercase font-bold opacity-85">
+                                Ý {st.key}
+                              </span>
+                              <span className="text-[11px] font-black">
+                                {st.isRight ? (
+                                  <span>{correctLetter} ✓</span>
+                                ) : st.userVal !== undefined ? (
+                                  <span>
+                                    {userLetter} <span className="text-[9px] opacity-90 font-normal">({correctLetter})</span>
+                                  </span>
+                                ) : (
+                                  <span>({correctLetter})</span>
+                                )}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Explicit True/False Answer Key Summary */}
+                      <div className="mt-2 pt-1.5 border-t border-slate-200/70 text-[10px] text-slate-600 flex items-center justify-between font-mono">
+                        <span className="font-sans font-bold text-slate-500">Đ/A:</span>
+                        <span className="font-bold text-slate-800">
+                          {q.statementDetails.map((s) => `${s.key}: ${s.correctVal ? "Đúng" : "Sai"}`).join(" • ")}
+                        </span>
                       </div>
                     </button>
                   );
