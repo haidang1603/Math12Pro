@@ -16,6 +16,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Math12Pro - Nền tảng luyện thi Toán 12 Chuẩn Bộ GD&ĐT",
   description: "Tích hợp 3 bộ sách, lộ trình Khóa chốt chặn 4 bước và Phòng thi ảo chuẩn cấu trúc mới 2025",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png" },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

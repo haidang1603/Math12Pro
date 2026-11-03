@@ -437,7 +437,7 @@ export default function Home() {
         {currentTab === "learning" && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8 animate-in fade-in duration-300">
             {/* Hero Banner with Free Open Access USP */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-blue-950 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-slate-800">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-blue-950 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-slate-800 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
               <div className="relative z-10 max-w-3xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30 text-xs font-bold mb-4">
                   <Sparkles className="w-3.5 h-3.5" />
@@ -500,6 +500,28 @@ export default function Home() {
                     <Zap className="w-3.5 h-3.5 text-amber-300" />
                     <span>Luyện phản xạ 15p</span>
                   </button>
+                </div>
+              </div>
+
+              {/* Character Mascot / Logo Display on Desktop */}
+              <div className="hidden lg:flex flex-col items-center justify-center shrink-0 relative z-10">
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-blue-600 rounded-3xl blur-md opacity-40 group-hover:opacity-75 transition duration-500" />
+                  <div className="relative w-40 h-40 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-slate-900">
+                    <img
+                      src="/logo.jpg"
+                      alt="Math12Pro Mascot"
+                      className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+                <div className="mt-2.5 text-center">
+                  <span className="text-xs font-extrabold text-white tracking-wide block">
+                    Math12Pro
+                  </span>
+                  <span className="text-[10px] text-orange-400 font-medium">
+                    Trợ lý Toán 12 Thông Minh
+                  </span>
                 </div>
               </div>
             </div>

@@ -102,10 +102,14 @@ export default function Navbar({
           {/* Logo */}
           <div
             onClick={() => onChangeTab("learning")}
-            className="flex items-center gap-2 cursor-pointer group select-none shrink-0"
+            className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-orange-500 flex items-center justify-center shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <span className="font-serif font-black text-sm text-white italic">∫x</span>
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden ring-1.5 ring-orange-500/40 group-hover:ring-orange-500 shadow-md shadow-orange-500/10 group-hover:scale-105 transition-all flex items-center justify-center shrink-0 bg-slate-800">
+              <img
+                src="/logo.jpg"
+                alt="Math12Pro Logo"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             <div className="hidden sm:block">
               <div className="flex items-center gap-1 leading-none">
