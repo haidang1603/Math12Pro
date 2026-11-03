@@ -95,6 +95,42 @@ export function getExamScoreStructure(exam: ExamData): ExamScoreStructure {
   };
 }
 
+export function isAnswerMatching(
+  rawUserAns: string | undefined | null,
+  correctAns: string,
+  acceptableAnswers?: string[]
+): boolean {
+  if (!rawUserAns || !rawUserAns.trim()) return false;
+
+  const normalize = (str: string) =>
+    str
+      .trim()
+      .toLowerCase()
+      .replace(/\./g, ",")
+      .replace(/;/g, ",")
+      .replace(/\s+/g, "");
+
+  const userClean = normalize(rawUserAns);
+  const correctClean = normalize(correctAns);
+
+  if (userClean === correctClean) return true;
+
+  if (acceptableAnswers && acceptableAnswers.length > 0) {
+    if (acceptableAnswers.some((ans) => normalize(ans) === userClean)) {
+      return true;
+    }
+  }
+
+  const uDirect = rawUserAns.trim().toLowerCase().replace(/\./g, ",");
+  const cDirect = correctAns.trim().toLowerCase().replace(/\./g, ",");
+  if (uDirect === cDirect) return true;
+  if (acceptableAnswers?.some((ans) => ans.trim().toLowerCase().replace(/\./g, ",") === uDirect)) {
+    return true;
+  }
+
+  return false;
+}
+
 export function calculateExamResult(
   exam: ExamData,
   answers: ExamUserAnswers,
@@ -165,16 +201,10 @@ export function calculateExamResult(
     const maxQScore = q.pointWeight || structure.perP3;
     chapterMax[q.chapterId] = (chapterMax[q.chapterId] || 0) + maxQScore;
 
-    const rawUserAns = (answers.part3[q.id] || "").trim().toLowerCase();
-    const cleanUserAns = rawUserAns.replace(/\./g, ",");
-    const cleanCorrect = q.correctAnswer.trim().toLowerCase().replace(/\./g, ",");
+    const userAns = answers.part3[q.id];
+    const isMatch = isAnswerMatching(userAns, q.correctAnswer, q.acceptableAnswers);
 
-    const isMatch =
-      cleanUserAns === cleanCorrect ||
-      (q.acceptableAnswers &&
-        q.acceptableAnswers.some((ans) => ans.trim().toLowerCase().replace(/\./g, ",") === cleanUserAns));
-
-    if (rawUserAns && isMatch) {
+    if (isMatch) {
       scorePart3 += maxQScore;
       chapterEarned[q.chapterId] = (chapterEarned[q.chapterId] || 0) + maxQScore;
     } else {
@@ -189,16 +219,10 @@ export function calculateExamResult(
       const maxQScore = q.pointWeight || structure.perP4 || 0.5;
       chapterMax[q.chapterId] = (chapterMax[q.chapterId] || 0) + maxQScore;
 
-      const rawUserAns = (answers.part4?.[q.id] || "").trim().toLowerCase();
-      const cleanUserAns = rawUserAns.replace(/\./g, ",");
-      const cleanCorrect = q.correctAnswer.trim().toLowerCase().replace(/\./g, ",");
+      const userAns = answers.part4?.[q.id];
+      const isMatch = isAnswerMatching(userAns, q.correctAnswer, q.acceptableAnswers);
 
-      const isMatch =
-        cleanUserAns === cleanCorrect ||
-        (q.acceptableAnswers &&
-          q.acceptableAnswers.some((ans) => ans.trim().toLowerCase().replace(/\./g, ",") === cleanUserAns));
-
-      if (rawUserAns && isMatch) {
+      if (isMatch) {
         scorePart4 += maxQScore;
         chapterEarned[q.chapterId] = (chapterEarned[q.chapterId] || 0) + maxQScore;
       } else {

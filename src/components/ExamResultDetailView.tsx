@@ -20,7 +20,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import { ExamData, ExamResult, ExamUserAnswers } from "@/types/exam";
-import { getExamScoreStructure } from "@/utils/scoring";
+import { getExamScoreStructure, isAnswerMatching } from "@/utils/scoring";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import TrueFalseQuestion from "./TrueFalseQuestion";
 import ShortAnswerQuestion from "./ShortAnswerQuestion";
@@ -115,15 +115,7 @@ export default function ExamResultDetailView({
     return exam.part3.map((q) => {
       const rawUserAns = (answers.part3[q.id] || "").trim();
       const isAnswered = rawUserAns.length > 0;
-      const normalizedUser = rawUserAns.replace(/\./g, ",");
-      const normalizedCorrect = q.correctAnswer.trim().replace(/\./g, ",");
-
-      let isCorrect = normalizedUser === normalizedCorrect;
-      if (!isCorrect && q.acceptableAnswers) {
-        isCorrect = q.acceptableAnswers.some(
-          (acc) => acc.trim().replace(/\./g, ",") === normalizedUser
-        );
-      }
+      const isCorrect = isAnswerMatching(rawUserAns, q.correctAnswer, q.acceptableAnswers);
 
       return {
         id: q.id,
@@ -145,15 +137,7 @@ export default function ExamResultDetailView({
     return exam.part4.map((q) => {
       const rawUserAns = answers.part4?.[q.id] || "";
       const isAnswered = Boolean(rawUserAns.trim());
-      const normalizedUser = rawUserAns.trim().replace(/\./g, ",");
-      const normalizedCorrect = q.correctAnswer.trim().replace(/\./g, ",");
-
-      let isCorrect = normalizedUser === normalizedCorrect;
-      if (!isCorrect && q.acceptableAnswers) {
-        isCorrect = q.acceptableAnswers.some(
-          (acc) => acc.trim().replace(/\./g, ",") === normalizedUser
-        );
-      }
+      const isCorrect = isAnswerMatching(rawUserAns, q.correctAnswer, q.acceptableAnswers);
 
       return {
         id: q.id,
@@ -240,11 +224,7 @@ export default function ExamResultDetailView({
   const filteredPart3 = useMemo(() => {
     if (sectionFilter !== "ALL" && sectionFilter !== "PART_3") return [];
     return exam.part3.filter((q) => {
-      const userAns = (answers.part3[q.id] || "").trim().replace(/\./g, ",");
-      const correct = q.correctAnswer.trim().replace(/\./g, ",");
-      const isCorrect =
-        userAns === correct ||
-        Boolean(q.acceptableAnswers?.some((acc) => acc.trim().replace(/\./g, ",") === userAns));
+      const isCorrect = isAnswerMatching(answers.part3[q.id], q.correctAnswer, q.acceptableAnswers);
       if (filterType === "CORRECT") return isCorrect;
       if (filterType === "WRONG") return !isCorrect;
       return true;
@@ -255,11 +235,7 @@ export default function ExamResultDetailView({
     if (!exam.part4 || exam.part4.length === 0) return [];
     if (sectionFilter !== "ALL" && sectionFilter !== "PART_4") return [];
     return exam.part4.filter((q) => {
-      const userAns = (answers.part4?.[q.id] || "").trim().replace(/\./g, ",");
-      const correct = q.correctAnswer.trim().replace(/\./g, ",");
-      const isCorrect =
-        userAns === correct ||
-        Boolean(q.acceptableAnswers?.some((acc) => acc.trim().replace(/\./g, ",") === userAns));
+      const isCorrect = isAnswerMatching(answers.part4?.[q.id], q.correctAnswer, q.acceptableAnswers);
       if (filterType === "CORRECT") return isCorrect;
       if (filterType === "WRONG") return !isCorrect;
       return true;

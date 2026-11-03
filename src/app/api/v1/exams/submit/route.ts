@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import { EXAMS_BY_MILESTONE, MOCK_EXAM_2025 } from "@/data/mockExamData";
-import { calculateExamResult } from "@/utils/scoring";
-import { MilestoneType } from "@/types/exam";
+import { ALL_DEFAULT_OFFICIAL_EXAMS, EXAMS_BY_MILESTONE, MOCK_EXAM_2025 } from "@/data/mockExamData";
+import { calculateExamResult, isAnswerMatching } from "@/utils/scoring";
+import { ExamData, ExamUserAnswers, MilestoneType } from "@/types/exam";
 import { MistakeItem } from "@/types/learning";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { milestone = "TOT_NGHIEP_THPT", answers, timeSpentSeconds = 0 } = body;
+    const { milestone = "TOT_NGHIEP_THPT", answers, timeSpentSeconds = 0, examData, examId } = body;
 
-    const exam = EXAMS_BY_MILESTONE[milestone as MilestoneType] || MOCK_EXAM_2025;
+    let exam: ExamData | undefined = examData;
+    if (!exam && examId) {
+      exam = ALL_DEFAULT_OFFICIAL_EXAMS.find((e) => e.id === examId);
+    }
+    if (!exam) {
+      exam = EXAMS_BY_MILESTONE[milestone as MilestoneType] || MOCK_EXAM_2025;
+    }
+
     if (!exam) {
       return NextResponse.json(
         { success: false, message: `Không tìm thấy đề thi cho mốc: ${milestone}` },
@@ -24,17 +31,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const safeAnswers = {
+    const safeAnswers: ExamUserAnswers = {
       part1: answers.part1 || {},
       part2: answers.part2 || {},
       part3: answers.part3 || {},
+      part4: answers.part4 || {},
       flagged: answers.flagged || {},
     };
 
-    // Calculate result using official MoET 2025 rules
+    // Calculate result using official scoring rules
     const result = calculateExamResult(exam, safeAnswers, timeSpentSeconds);
 
-    // Identify all mistakes across Part 1, Part 2, Part 3
+    // Identify all mistakes across Part 1, Part 2, Part 3, Part 4
     const mistakes: MistakeItem[] = [];
 
     // 1. Part 1 mistakes
@@ -94,14 +102,8 @@ export async function POST(req: NextRequest) {
 
     // 3. Part 3 mistakes (if short answer is incorrect)
     exam.part3.forEach((q) => {
-      const rawUserAns = (safeAnswers.part3[q.id] || "").trim().toLowerCase();
-      const cleanUserAns = rawUserAns.replace(/\./g, ",");
-      const cleanCorrect = q.correctAnswer.trim().toLowerCase().replace(/\./g, ",");
-
-      const isMatch =
-        cleanUserAns === cleanCorrect ||
-        (q.acceptableAnswers &&
-          q.acceptableAnswers.some((ans) => ans.trim().toLowerCase().replace(/\./g, ",") === cleanUserAns));
+      const rawUserAns = safeAnswers.part3[q.id];
+      const isMatch = isAnswerMatching(rawUserAns, q.correctAnswer, q.acceptableAnswers);
 
       if (!isMatch) {
         mistakes.push({
@@ -123,6 +125,34 @@ export async function POST(req: NextRequest) {
         });
       }
     });
+
+    // 4. Part 4 mistakes (Tự luận essay)
+    if (exam.part4 && Array.isArray(exam.part4)) {
+      exam.part4.forEach((q) => {
+        const rawUserAns = safeAnswers.part4?.[q.id];
+        const isMatch = isAnswerMatching(rawUserAns, q.correctAnswer, q.acceptableAnswers);
+
+        if (!isMatch) {
+          mistakes.push({
+            id: `exam-p4-${q.id}-${Date.now()}`,
+            source: "MOCK_EXAM",
+            questionNumber: q.number,
+            part: 4,
+            chapterId: q.chapterId,
+            chapterTitle: q.chapterName,
+            topic: q.topic,
+            problem: q.content,
+            studentAnswer: rawUserAns || "Chưa nhập",
+            correctAnswer: q.correctAnswer + (q.unit ? ` (${q.unit})` : ""),
+            explanation: q.explanation,
+            tag: "Sai tính toán",
+            reviewCount: 1,
+            resolved: false,
+            date: "Thi thử hôm nay",
+          });
+        }
+      });
+    }
 
     return NextResponse.json({
       success: true,

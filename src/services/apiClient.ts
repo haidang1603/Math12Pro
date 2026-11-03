@@ -1,10 +1,13 @@
-import { ExamResult, ExamUserAnswers, MilestoneType, ExamAttemptRecord } from "@/types/exam";
+import { ExamData, ExamResult, ExamUserAnswers, MilestoneType, ExamAttemptRecord } from "@/types/exam";
 import { MistakeItem } from "@/types/learning";
 import { saveExamAttempt, saveMistake, updateChapterMasteryScore } from "./storageService";
 import { EXAMS_BY_MILESTONE, MOCK_EXAM_2025 } from "@/data/mockExamData";
 
 export interface SubmitExamPayload {
   milestone: MilestoneType;
+  examId?: string;
+  examTitle?: string;
+  examData?: ExamData;
   answers: ExamUserAnswers;
   timeSpentSeconds: number;
 }
@@ -61,7 +64,7 @@ export async function submitExamApi(
       if (data.success && data.result) {
         // Save to persistent storage
         const savedAttempt = saveExamAttempt(
-          `exam-${payload.milestone}`,
+          payload.examId ? `exam-${payload.examId}` : `exam-${payload.milestone}`,
           data.examTitle || examTitle,
           payload.milestone,
           data.result,

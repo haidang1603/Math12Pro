@@ -340,6 +340,9 @@ export default function Home() {
     const { result } = await submitExamApi(
       {
         milestone: selectedMilestone,
+        examId: exam.id,
+        examTitle: exam.title,
+        examData: exam,
         answers,
         timeSpentSeconds: timeSpent,
       },

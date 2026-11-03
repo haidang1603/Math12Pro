@@ -3,6 +3,7 @@
 import React from "react";
 import { Bookmark } from "lucide-react";
 import { ShortAnswerQuestionData } from "@/types/exam";
+import { isAnswerMatching } from "@/utils/scoring";
 import MathRenderer from "./MathRenderer";
 
 interface ShortAnswerQuestionProps {
@@ -57,15 +58,11 @@ export default function ShortAnswerQuestion({
   };
 
   // Review status
-  const cleanUserAns = (userAnswer || "").trim().toLowerCase().replace(/\./g, ",");
-  const cleanCorrect = question.correctAnswer.trim().toLowerCase().replace(/\./g, ",");
-  const isMatch =
-    cleanUserAns === cleanCorrect ||
-    (question.acceptableAnswers &&
-      question.acceptableAnswers.some((ans) => ans.trim().toLowerCase().replace(/\./g, ",") === cleanUserAns));
+  const isMatch = isAnswerMatching(userAnswer, question.correctAnswer, question.acceptableAnswers);
+  const isAnswered = Boolean((userAnswer || "").trim());
 
-  const isCorrect = isReviewMode && Boolean(cleanUserAns) && isMatch;
-  const isWrong = isReviewMode && Boolean(cleanUserAns) && !isMatch;
+  const isCorrect = isReviewMode && isAnswered && isMatch;
+  const isWrong = isReviewMode && isAnswered && !isMatch;
 
   return (
     <div
