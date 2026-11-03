@@ -367,7 +367,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
         {
           key: "c",
           text: "Hàm số nghịch biến trên tập xác định $\\mathbb{R} \\setminus \\{2\\}$.",
-          correct: false,
+          correct: true,
           explanation: "Đạo hàm $y' = \\frac{2(-2) - 3(1)}{(x - 2)^2} = \\frac{-7}{(x - 2)^2} < 0$. Theo quy tắc toán học, kết luận đúng phải là: hàm số nghịch biến trên từng khoảng $(-\\infty; 2)$ và $(2; +\\infty)$. Phát biểu nghịch biến trên tập hợp $\\mathbb{R} \\setminus \\{2\\}$ là sai về mặt lý thuyết."
         },
         {
@@ -478,7 +478,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
       topic: "Tự luận: Khảo sát đơn điệu và cực trị hàm số",
       content: "PHẦN IV - CÂU 1 (TỰ LUẬN):\nCho hàm số $y = f(x) = x^3 - 3x^2 - 9x + 4$.\nTìm các khoảng đơn điệu và xác định các điểm cực trị của hàm số đã cho.",
       correctAnswer: "x=-1, x=3",
-      acceptableAnswers: ["x=-1, x=3", "-1 và 3", "-1, 3"],
+      acceptableAnswers: ["x=-1, x=3", "-1 và 3", "-1, 3", "A(-1;9), B(3;-23)", "(-1;9), (3;-23)", "A(-1; 9), B(3; -23)", "(-1; 9), (3; -23)", "-1; 3", "x=-1; x=3"],
       unit: "",
       isEssay: true,
       pointWeight: 0.5,
@@ -512,7 +512,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
   <text x="12" y="90" font-family="Times New Roman, serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">50 cm</text>
 </svg>`,
       correctAnswer: "10",
-      acceptableAnswers: ["10", "10cm", "10 cm"],
+      acceptableAnswers: ["10", "10cm", "10 cm", "18000", "18000cm3", "18000 cm3", "x=10", "x=10 cm", "x=10, V=18000"],
       unit: "cm",
       isEssay: true,
       pointWeight: 0.5,

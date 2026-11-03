@@ -127,7 +127,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
         { key: "C", text: "$-2$" },
         { key: "D", text: "$1$" }
       ],
-      correctAnswer: "B",
+      correctAnswer: "A",
       explanation: "Dựa vào bảng biến thiên, giá trị cao nhất trên đoạn $[-3; 1]$ là $f(0) = 5$."
     },
     {
@@ -179,7 +179,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
         { key: "C", text: "$y = x - 3$" },
         { key: "D", text: "$y = 2x - 1$" }
       ],
-      correctAnswer: "B",
+      correctAnswer: "A",
       explanation: "Ta có $\\frac{x^2 - 3x + 1}{x - 2} = x - 1 - \\frac{1}{x - 2}$. Khi $x \\to \\pm\\infty$, phần dư $-\\frac{1}{x - 2} \\to 0$. Vậy tiệm cận xiên là đường thẳng $y = x - 1$."
     },
     {
@@ -377,7 +377,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       topic: "Tự luận: Khảo sát hàm số",
       content: "PHẦN IV - CÂU 1 (TỰ LUẬN):\nCho hàm số $y = f(x) = x^3 - 6x^2 + 9x - 1$. Tìm các khoảng đơn điệu và xác định các điểm cực trị của hàm số đã cho.",
       correctAnswer: "x=1, x=3",
-      acceptableAnswers: ["x=1, x=3"],
+      acceptableAnswers: ["x=1, x=3", "1, 3", "1 và 3", "(1;3), (3;-1)", "(1; 3), (3; -1)"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 3x^2 - 12x + 9 = 3(x - 1)(x - 3)$.\n$y' = 0 \\iff x = 1$ hoặc $x = 3$.\n3) Bảng xét dấu đạo hàm:\n- $y' > 0$ trên $(-\\infty; 1)$ và $(3; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; 1)$ và $(3; +\\infty)$.\n- $y' < 0$ trên $(1; 3) \\implies$ hàm số nghịch biến trên khoảng $(1; 3)$.\n4) Cực trị:\n- Hàm số đạt cực đại tại $x = 1$, giá trị cực đại $y(1) = 3$.\n- Hàm số đạt cực tiểu tại $x = 3$, giá trị cực tiểu $y(3) = -1$."

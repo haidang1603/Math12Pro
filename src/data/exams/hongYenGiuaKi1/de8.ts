@@ -378,7 +378,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       topic: "Tự luận: Khảo sát hàm số bậc ba",
       content: "PHẦN IV - CÂU 1 (TỰ LUẬN):\nCho hàm số $y = f(x) = x^3 - 3x^2 - 24x + 10$. Tìm các khoảng đơn điệu và xác định các điểm cực trị của hàm số đã cho.",
       correctAnswer: "x=-2, x=4",
-      acceptableAnswers: ["x=-2, x=4"],
+      acceptableAnswers: ["x=-2, x=4", "-2, 4", "-2 và 4", "(-2;38), (4;-70)", "(-2; 38), (4; -70)"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 3x^2 - 6x - 24 = 3(x^2 - 2x - 8) = 3(x + 2)(x - 4)$.\n$y' = 0 \\iff x = -2$ hoặc $x = 4$.\n3) Bảng xét dấu đạo hàm:\n- $y' > 0$ trên $(-\\infty; -2)$ và $(4; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; -2)$ và $(4; +\\infty)$.\n- $y' < 0$ trên $(-2; 4) \\implies$ hàm số nghịch biến trên khoảng $(-2; 4)$.\n4) Cực trị:\n- Hàm số đạt cực đại tại $x = -2$, giá trị cực đại $y(-2) = 38$.\n- Hàm số đạt cực tiểu tại $x = 4$, giá trị cực tiểu $y(4) = -70$."
@@ -393,7 +393,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       topic: "Tự luận: Gập hộp nhôm vuông không nắp",
       content: "PHẦN IV - CÂU 2 (TỰ LUẬN):\nTừ một tấm nhôm hình vuông có cạnh bằng $90\\text{ cm}$, người ta cắt bỏ ở bốn góc bốn hình vuông bằng nhau có cạnh bằng $x\\text{ (cm)}$ rồi gập các mép lại để tạo thành một chiếc hộp không nắp có dạng hình hộp chữ nhật. Tìm độ dài cạnh $x$ để thể tích của chiếc hộp thu được là lớn nhất.",
       correctAnswer: "15cm",
-      acceptableAnswers: ["15", "15cm", "x=15"],
+      acceptableAnswers: ["15", "15cm", "x=15", "15 cm"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "Sau khi cắt bỏ 4 góc hình vuông cạnh $x$ ($0 < x < 45$), đáy chiếc hộp là hình vuông có cạnh bằng $90 - 2x\\text{ (cm)}$ và chiều cao của hộp là $x\\text{ (cm)}$.\nThể tích của chiếc hộp là:\n$$V(x) = x(90 - 2x)^2 = 4x(45 - x)^2$$\nÁp dụng bất đẳng thức AM-GM cho ba số dương $2x, 45 - x, 45 - x$:\n$$2x \\cdot (45 - x) \\cdot (45 - x) \\le \\left(\\frac{2x + 45 - x + 45 - x}{3}\\right)^3 = 30^3 = 27000$$\nDo đó $V(x) = 2 \\cdot [2x(45 - x)^2] \\le 2 \\cdot 27000 = 54000\\text{ (cm}^3\\text{)}$.\nDấu bằng xảy ra khi $2x = 45 - x \\iff 3x = 45 \\iff x = 15\\text{ cm}$.\nVậy để thể tích hộp lớn nhất thì độ dài cạnh cắt bỏ là $x = 15\\text{ cm}$."

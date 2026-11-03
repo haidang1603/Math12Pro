@@ -384,7 +384,7 @@ export const EXAM_GIUA_KI_1_DE9_HONG_YEN: ExamData = {
       topic: "Tự luận: Khảo sát hàm số bậc ba",
       content: "PHẦN IV - CÂU 1 (TỰ LUẬN):\nCho hàm số $y = f(x) = 2x^3 - 3x^2 - 12x + 5$. Tìm các khoảng đơn điệu và xác định các điểm cực trị của hàm số đã cho.",
       correctAnswer: "x=-1, x=2",
-      acceptableAnswers: ["x=-1, x=2"],
+      acceptableAnswers: ["x=-1, x=2", "-1, 2", "-1 và 2", "(-1;12), (3;-15)", "(-1; 12), (3; -15)", "(-1;12), (2;-15)", "(-1; 12), (2; -15)", "x=-1, x=3"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 6x^2 - 6x - 12 = 6(x^2 - x - 2) = 6(x + 1)(x - 2)$.\n$y' = 0 \\iff x = -1$ hoặc $x = 2$.\n3) Bảng biến thiên:\n- $y' > 0$ trên $(-\\infty; -1)$ và $(2; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; -1)$ và $(2; +\\infty)$.\n- $y' < 0$ trên $(-1; 2) \\implies$ hàm số nghịch biến trên khoảng $(-1; 2)$.\n4) Cực trị:\n- Hàm số đạt cực đại tại $x = -1$, giá trị cực đại $y(-1) = 12$.\n- Hàm số đạt cực tiểu tại $x = 2$, giá trị cực tiểu $y(2) = -15$."

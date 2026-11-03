@@ -380,7 +380,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       topic: "Tự luận: Khảo sát hàm số bậc ba",
       content: "PHẦN IV - CÂU 1 (TỰ LUẬN):\nCho hàm số $y = f(x) = 2x^3 - 9x^2 + 12x - 3$. Tìm các khoảng đơn điệu và xác định các điểm cực trị của hàm số đã cho.",
       correctAnswer: "x=1, x=2",
-      acceptableAnswers: ["x=1, x=2"],
+      acceptableAnswers: ["x=1, x=2", "1, 2", "1 và 2", "A(1;2), B(2;1)", "A(1; 2), B(2; 1)", "(1;2), (2;1)", "(1; 2), (2; 1)"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 6x^2 - 18x + 12 = 6(x^2 - 3x + 2) = 6(x - 1)(x - 2)$.\n$y' = 0 \\iff x = 1$ hoặc $x = 2$.\n3) Bảng xét dấu đạo hàm:\n- $y' > 0$ trên $(-\\infty; 1)$ và $(2; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; 1)$ và $(2; +\\infty)$.\n- $y' < 0$ trên $(1; 2) \\implies$ hàm số nghịch biến trên $(1; 2)$.\n4) Cực trị:\n- Điểm cực đại của hàm số là $x = 1$, giá trị cực đại $y(1) = 2$.\n- Điểm cực tiểu của hàm số là $x = 2$, giá trị cực tiểu $y(2) = 1$."
@@ -395,7 +395,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       topic: "Tự luận: Bài toán máng thoát nước mưa",
       content: "PHẦN IV - CÂU 2 (TỰ LUẬN):\nNgười ta muốn làm một chiếc máng thoát nước mưa từ một tấm tôn dài có bề rộng $60\\text{ cm}$. Người ta uốn tấm tôn thành một chiếc máng có mặt cắt ngang là hình chữ nhật hở ở phía trên bằng cách gấp hai mép bên vuông góc với đáy sao cho mỗi mép có cùng chiều cao là $x\\text{ (cm)}$. Tìm chiều cao $x$ để diện tích mặt cắt ngang của chiếc máng đạt giá trị lớn nhất (giúp máng dẫn được lưu lượng nước tối đa).",
       correctAnswer: "15cm",
-      acceptableAnswers: ["15cm", "15", "x=15"],
+      acceptableAnswers: ["15cm", "15", "x=15", "15 cm", "450", "450cm2", "450 cm2", "15, 450", "15cm, 450cm2"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "Khi gấp hai mép cao $x\\text{ cm}$ ($0 < x < 30$), chiều rộng của đáy máng là $60 - 2x\\text{ (cm)}$.\nDiện tích mặt cắt ngang hình chữ nhật của máng nước là:\n$$S(x) = x(60 - 2x) = -2x^2 + 60x = -2(x^2 - 30x) = -2(x - 15)^2 + 450 \\le 450\\text{ (cm}^2\\text{)}$$\nDấu đẳng thức xảy ra khi $x = 15\\text{ cm}$ (thỏa mãn $0 < x < 30$).\nVậy chiều cao mỗi mép máng cần gấp là $x = 15\\text{ cm}$ để diện tích mặt cắt ngang lớn nhất."

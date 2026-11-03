@@ -346,7 +346,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       topic: "Tự luận: Khảo sát hàm số",
       content: "PHẦN IV - CÂU 1 (TỰ LUẬN):\nCho hàm số $y = f(x) = -x^3 + 3x^2 + 9x - 2$. Tìm các khoảng đơn điệu và xác định các điểm cực trị của hàm số đã cho.",
       correctAnswer: "x=-1, x=3",
-      acceptableAnswers: ["x=-1, x=3"],
+      acceptableAnswers: ["x=-1, x=3", "-1, 3", "-1 và 3", "A(-1;-7), B(3;25)", "(-1;-7), (3;25)", "A(-1; -7), B(3; 25)", "(-1; -7), (3; 25)"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "$y' = -3x^2 + 6x + 9 = -3(x + 1)(x - 3) = 0 \\iff x = -1$ hoặc $x = 3$.\nHàm số đồng biến trên khoảng $(-1; 3)$, nghịch biến trên các khoảng $(-\\infty; -1)$ và $(3; +\\infty)$.\nĐiểm cực tiểu $x = -1$ ($y_{CT} = -7$), điểm cực đại $x = 3$ ($y_{CĐ} = 25$)."
@@ -361,7 +361,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       topic: "Tự luận: Bài toán rào vườn chia ngăn",
       content: "PHẦN IV - CÂU 2 (TỰ LUẬN):\nMột người nông dân muốn xây dựng một khu vườn hình chữ nhật để trồng rau có diện tích bằng $600\\text{ m}^2$. Khu vườn được chia làm hai ngăn bằng nhau bởi một hàng rào song song với chiều rộng của khu vườn. Chi phí làm hàng rào bao quanh và hàng rào ngăn đôi được tính theo mét chiều dài rào. Tìm kích thước chiều dài và chiều rộng của khu vườn sao cho tổng chiều dài hàng rào lưới thép cần sử dụng là ngắn nhất.",
       correctAnswer: "20m, 30m",
-      acceptableAnswers: ["20m, 30m", "x=20, y=30", "20 và 30"],
+      acceptableAnswers: ["20m, 30m", "x=20, y=30", "20 và 30", "30, 20", "30m, 20m", "20, 30", "30 và 20", "20", "30"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "Gọi $x$ là chiều rộng (song song với rào ngăn) và $y$ là chiều dài khu vườn ($x > 0, y > 0$).\nDiện tích: $xy = 600 \\implies y = \\frac{600}{x}$.\nTổng chiều dài hàng rào gồm 3 đoạn chiều rộng $x$ (2 cạnh bao + 1 ngăn) và 2 đoạn chiều dài $y$:\n$$L(x) = 3x + 2y = 3x + \\frac{1200}{x} \\ge 2\\sqrt{3x \\cdot \\frac{1200}{x}} = 2\\sqrt{3600} = 120\\text{ (m)}$$\nDấu đẳng thức xảy ra khi $3x = \\frac{1200}{x} \\iff x^2 = 400 \\iff x = 20\\text{ m}$.\nKhi đó chiều dài $y = \\frac{600}{20} = 30\\text{ m}$.\nVậy chiều rộng là $20\\text{ m}$ và chiều dài là $30\\text{ m}$."

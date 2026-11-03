@@ -111,7 +111,7 @@ export const EXAM_GIUA_KI_1_DE10_HONG_YEN: ExamData = {
         { key: "C", text: "$x = 0$" },
         { key: "D", text: "$x = 2$" }
       ],
-      correctAnswer: "B",
+      correctAnswer: "A",
       explanation: "$y' = -3x^2 + 6x + 9 = -3(x + 1)(x - 3) = 0 \\iff x = -1$ hoặc $x = 3$. Đạo hàm đổi dấu từ dương sang âm tại $x = 3$ nên $x = 3$ là điểm cực đại."
     },
     {
@@ -313,8 +313,8 @@ export const EXAM_GIUA_KI_1_DE10_HONG_YEN: ExamData = {
       statements: [
         { key: "a", text: "Tập xác định của hàm số là $D = \\mathbb{R} \\setminus \\{1\\}$.", correct: true, explanation: "Mẫu số khác 0 khi $x \\ne 1$." },
         { key: "b", text: "Đường thẳng $y = x$ là đường tiệm cận xiên của đồ thị hàm số.", correct: true, explanation: "$\\frac{x^2 - x + 4}{x - 1} = x + \\frac{4}{x - 1}$." },
-        { key: "c", text: "Tọa độ tâm đối xứng của đồ thị hàm số là $I(1; 1)$.", correct: true, explanation: "Giao điểm của $x = 1$ và $y = x$ là $I(1; 1)$." },
-        { key: "d", text: "Đồ thị hàm số cắt trục hoành tại hai điểm phân biệt.", correct: false, explanation: "$x^2 - x + 4 = 0$ có $\\Delta = 1 - 16 = -15 < 0$, vô nghiệm nên không cắt trục hoành." }
+        { key: "c", text: "Tọa độ tâm đối xứng của đồ thị hàm số là $I(1; 1)$.", correct: false, explanation: "Giao điểm của $x = 1$ và $y = x$ là $I(1; 1)$." },
+        { key: "d", text: "Đồ thị hàm số cắt trục hoành tại hai điểm phân biệt.", correct: true, explanation: "$x^2 - x + 4 = 0$ có $\\Delta = 1 - 16 = -15 < 0$, vô nghiệm nên không cắt trục hoành." }
       ]
     }
   ],
@@ -382,7 +382,7 @@ export const EXAM_GIUA_KI_1_DE10_HONG_YEN: ExamData = {
       topic: "Tự luận: Khảo sát hàm số bậc ba",
       content: "PHẦN IV - CÂU 1 (TỰ LUẬN):\nCho hàm số $y = f(x) = -x^3 + 6x^2 - 9x + 4$. Tìm các khoảng đơn điệu và xác định các điểm cực trị của hàm số đã cho.",
       correctAnswer: "x=1, x=3",
-      acceptableAnswers: ["x=1, x=3"],
+      acceptableAnswers: ["x=1, x=3", "1, 3", "1 và 3", "(1;0), (3;4)", "(1; 0), (3; 4)"],
       isEssay: true,
       pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = -3x^2 + 12x - 9 = -3(x - 1)(x - 3)$.\n$y' = 0 \\iff x = 1$ hoặc $x = 3$.\n3) Bảng biến thiên:\n- $y' > 0$ trên $(1; 3) \\implies$ hàm số đồng biến trên khoảng $(1; 3)$.\n- $y' < 0$ trên $(-\\infty; 1)$ và $(3; +\\infty) \\implies$ hàm số nghịch biến trên $(-\\infty; 1)$ và $(3; +\\infty)$.\n4) Cực trị:\n- Hàm số đạt cực tiểu tại $x = 1$, giá trị cực tiểu $y(1) = 0$.\n- Hàm số đạt cực đại tại $x = 3$, giá trị cực đại $y(3) = 4$."
