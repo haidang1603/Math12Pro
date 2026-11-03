@@ -64,6 +64,7 @@ import MathAiSolverModal from "@/components/MathAiSolverModal";
 import MathTipsAndFormulasModal from "@/components/MathTipsAndFormulasModal";
 import confetti from "canvas-confetti";
 
+// Main Home Application Component - Math12Pro
 export default function Home() {
   const [currentTab, setCurrentTab] = useState<"learning" | "exam" | "analytics">("learning");
   const [selectedTextbook, setSelectedTextbook] = useState<TextbookSeries>("ALL");
