@@ -62,7 +62,6 @@ import AzotaExamCreatorModal from "@/components/AzotaExamCreatorModal";
 import ExamManagerModal from "@/components/ExamManagerModal";
 import MathAiSolverModal from "@/components/MathAiSolverModal";
 import MathTipsAndFormulasModal from "@/components/MathTipsAndFormulasModal";
-import MathLabStudio from "@/components/MathLabStudio";
 import confetti from "canvas-confetti";
 
 export default function Home() {
@@ -80,7 +79,6 @@ export default function Home() {
   const [isMistakeNotebookOpen, setIsMistakeNotebookOpen] = useState(false);
   const [isLiveArenaOpen, setIsLiveArenaOpen] = useState(false);
   const [isExamHistoryOpen, setIsExamHistoryOpen] = useState(false);
-  const [isMathLabOpen, setIsMathLabOpen] = useState(false);
   const [examHistoryCount, setExamHistoryCount] = useState<number>(0);
   const [streakDays, setStreakDays] = useState<number>(0);
 
@@ -421,7 +419,6 @@ export default function Home() {
           setMathTipsInitialTab("formulas");
           setIsMathTipsOpen(true);
         }}
-        onOpenMathLab={() => setIsMathLabOpen(true)}
         currentUser={currentUser}
         streakDays={streakDays}
       />
@@ -487,14 +484,6 @@ export default function Home() {
                   >
                     <Flame className="w-4 h-4 text-orange-400 fill-orange-400" />
                     <span>Đấu trường Chủ Nhật 20h00</span>
-                  </button>
-
-                  <button
-                    onClick={() => setIsMathLabOpen(true)}
-                    className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 hover:from-orange-600/45 border border-orange-500/40 text-orange-200 font-bold text-sm transition-all cursor-pointer"
-                  >
-                    <Calculator className="w-4 h-4 text-orange-400" />
-                    <span>Phòng Thí Nghiệm MathLab</span>
                   </button>
 
                   <button
@@ -1697,14 +1686,6 @@ export default function Home() {
         isOpen={isMathTipsOpen}
         onClose={() => setIsMathTipsOpen(false)}
         initialTab={mathTipsInitialTab}
-      />
-
-      {/* ========================================================================= */}
-      {/* MATHLAB STUDIO (PHÒNG THÍ NGHIỆM TOÁN HỌC) MODAL */}
-      {/* ========================================================================= */}
-      <MathLabStudio
-        isOpen={isMathLabOpen}
-        onClose={() => setIsMathLabOpen(false)}
       />
     </div>
   );

@@ -40,7 +40,6 @@ interface NavbarProps {
   onOpenAzotaCreator: () => void;
   onOpenExamManager: () => void;
   onOpenMathTips: () => void;
-  onOpenMathLab?: () => void;
   currentUser: UserProfile | null;
   streakDays?: number;
 }
@@ -59,7 +58,6 @@ export default function Navbar({
   onOpenAzotaCreator,
   onOpenExamManager,
   onOpenMathTips,
-  onOpenMathLab,
   currentUser,
   streakDays = 0,
 }: NavbarProps) {
@@ -204,18 +202,6 @@ export default function Navbar({
               </div>
             )}
           </div>
-
-          {/* Phòng Thí Nghiệm MathLab Studio Button */}
-          {onOpenMathLab && (
-            <button
-              onClick={onOpenMathLab}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-orange-500/20 to-amber-500/20 hover:from-orange-500/35 hover:to-amber-500/35 border border-orange-500/40 text-orange-300 text-xs font-bold transition-all cursor-pointer shadow-xs whitespace-nowrap shrink-0"
-              title="Phòng thí nghiệm Toán học (MathLab Studio): Vẽ đồ thị đa hàm, bảng giá trị, hình học động"
-            >
-              <Calculator className="w-3.5 h-3.5 text-orange-400 shrink-0" />
-              <span>Phòng Lab</span>
-            </button>
-          )}
 
           {/* AI Math Solver Button */}
           <button
@@ -502,42 +488,13 @@ export default function Navbar({
                 </div>
               </div>
 
-              {/* Section 2: Công cụ tương tác & Phòng Thí Nghiệm */}
+              {/* Section 2: Công cụ tương tác & AI */}
               <div className="pt-4 space-y-2">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-                  Không gian tương tác & Phòng Lab
+                  Công cụ & Tiện ích thông minh
                 </span>
 
                 <div className="space-y-1.5">
-                  {/* Phòng Thí Nghiệm MathLab */}
-                  {onOpenMathLab && (
-                    <button
-                      onClick={() => {
-                        setIsMobileMenuOpen(false);
-                        onOpenMathLab();
-                      }}
-                      className="w-full p-2.5 rounded-xl bg-gradient-to-r from-orange-500/15 via-amber-500/15 to-slate-800/80 hover:bg-orange-500/25 border border-orange-500/30 text-left flex items-center justify-between cursor-pointer group transition-colors"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center shrink-0">
-                          <Calculator className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="text-xs font-bold text-white group-hover:text-orange-300 flex items-center gap-1.5">
-                            <span>Phòng Thí Nghiệm Toán Học</span>
-                            <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.2 rounded-full bg-orange-500 text-white">
-                              HOT
-                            </span>
-                          </div>
-                          <div className="text-[10px] text-slate-400">
-                            Vẽ đồ thị đa hàm, bảng giá trị, hình học động 2D/3D
-                          </div>
-                        </div>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
-                    </button>
-                  )}
-
                   {/* AI Giải Toán 12 */}
                   <button
                     onClick={() => {
