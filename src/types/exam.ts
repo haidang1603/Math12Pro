@@ -1,4 +1,4 @@
-export type SectionType = "PART_1" | "PART_2" | "PART_3";
+export type SectionType = "PART_1" | "PART_2" | "PART_3" | "PART_4";
 
 export type MilestoneType = "GIUA_KI_1" | "CUOI_KI_1" | "GIUA_CUOI_KI_2" | "TOT_NGHIEP_THPT";
 
@@ -44,7 +44,7 @@ export interface TrueFalseQuestionData {
 
 export interface ShortAnswerQuestionData {
   id: number;
-  part: 3;
+  part: 3 | 4;
   number: number; // 1 to 6 or custom
   chapterId: number;
   chapterName: string;
@@ -58,7 +58,7 @@ export interface ShortAnswerQuestionData {
   unit?: string;
   difficulty?: "Vận dụng" | "Vận dụng cao";
   isEssay?: boolean; // Tự luận giải thích chi tiết
-  pointWeight?: number; // Điểm số tùy biến cho câu này (vd: 1.0 điểm)
+  pointWeight?: number; // Điểm số tùy biến cho câu này (vd: 0.5 điểm)
 }
 
 export type ExamFormatType =
@@ -76,6 +76,7 @@ export interface ExamData {
   part1: SingleChoiceQuestionData[];
   part2: TrueFalseQuestionData[];
   part3: ShortAnswerQuestionData[];
+  part4?: ShortAnswerQuestionData[]; // PHẦN IV: Tự luận (vd: 1.0 điểm)
   examFormat?: ExamFormatType;
   isCustom?: boolean;
   createdAt?: string;
@@ -88,6 +89,7 @@ export interface ExamUserAnswers {
   part1: Record<number, "A" | "B" | "C" | "D" | undefined>;
   part2: Record<number, Record<"a" | "b" | "c" | "d", boolean | undefined>>;
   part3: Record<number, string>;
+  part4?: Record<number, string>;
   flagged: Record<string, boolean>; // e.g., "p1-3": true, "p2-1": true
 }
 
@@ -104,13 +106,14 @@ export interface ChapterAnalysis {
 export interface ExamResult {
   scorePart1: number; // Max 3.0
   scorePart2: number; // Max 4.0
-  scorePart3: number; // Max 3.0
+  scorePart3: number; // Max 2.0 hoặc 3.0
+  scorePart4?: number; // Max 1.0 (cho đề có Phần IV Tự luận)
   totalScore: number; // Max 10.0
   chapterRadar: ChapterAnalysis[];
   weakChapters: ChapterAnalysis[];
   timeSpentSeconds: number;
   totalAnswered: number;
-  totalQuestions: number; // 22 questions (12 + 4 + 6)
+  totalQuestions: number; // e.g. 22 questions
   part2Breakdown: {
     questionNumber: number;
     correctCount: number;
@@ -128,6 +131,7 @@ export interface ExamAttemptRecord {
   scorePart1: number;
   scorePart2: number;
   scorePart3: number;
+  scorePart4?: number;
   timeSpentSeconds: number;
   submittedAt: string;
   result: ExamResult;

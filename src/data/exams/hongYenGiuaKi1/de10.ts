@@ -371,10 +371,12 @@ export const EXAM_GIUA_KI_1_DE10_HONG_YEN: ExamData = {
       unit: "m",
       explanation: "Phương trình độ cao: $h(t) = -5(t^2 - 10t + 25) + 130 = -5(t - 5)^2 + 130 \\le 130\\text{ m}$. Đẳng thức xảy ra khi $t = 5\\text{ s}$. Độ cao lớn nhất quả tên lửa đạt được là $130\\text{ m}$."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số bậc ba",
@@ -382,13 +384,13 @@ export const EXAM_GIUA_KI_1_DE10_HONG_YEN: ExamData = {
       correctAnswer: "x=1, x=3",
       acceptableAnswers: ["x=1, x=3"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = -3x^2 + 12x - 9 = -3(x - 1)(x - 3)$.\n$y' = 0 \\iff x = 1$ hoặc $x = 3$.\n3) Bảng biến thiên:\n- $y' > 0$ trên $(1; 3) \\implies$ hàm số đồng biến trên khoảng $(1; 3)$.\n- $y' < 0$ trên $(-\\infty; 1)$ và $(3; +\\infty) \\implies$ hàm số nghịch biến trên $(-\\infty; 1)$ và $(3; +\\infty)$.\n4) Cực trị:\n- Hàm số đạt cực tiểu tại $x = 1$, giá trị cực tiểu $y(1) = 0$.\n- Hàm số đạt cực đại tại $x = 3$, giá trị cực đại $y(3) = 4$."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       imageUrl: "/exams/hongYen/de10_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -397,7 +399,7 @@ export const EXAM_GIUA_KI_1_DE10_HONG_YEN: ExamData = {
       correctAnswer: "12cm",
       acceptableAnswers: ["12", "12cm", "x=12"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Khi gấp hai mép cao $x\\text{ cm}$ ($0 < x < 24$), đáy máng có bề rộng là $48 - 2x\\text{ (cm)}$.\nDiện tích mặt cắt ngang của chiếc máng là:\n$$S(x) = x(48 - 2x) = -2x^2 + 48x = -2(x - 12)^2 + 288 \\le 288\\text{ (cm}^2\\text{)}$$\nDấu đẳng thức xảy ra khi $x = 12\\text{ cm}$ (thỏa mãn $0 < x < 24$).\nVậy chiều cao mỗi mép cần gấp là $x = 12\\text{ cm}$ để máng đạt lưu lượng nước tối đa."
     }
   ]

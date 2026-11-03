@@ -4,9 +4,11 @@ export interface ExamScoreStructure {
   part1Score: number;
   part2Score: number;
   part3Score: number;
+  part4Score?: number;
   perP1: number;
   perP2Max: number;
   perP3: number;
+  perP4?: number;
   formatLabel: string;
 }
 
@@ -14,6 +16,24 @@ export function getExamScoreStructure(exam: ExamData): ExamScoreStructure {
   const countP1 = exam.part1?.length || 0;
   const countP2 = exam.part2?.length || 0;
   const countP3 = exam.part3?.length || 0;
+  const countP4 = exam.part4?.length || 0;
+
+  // Case 0: Đề cô Yến có Phần IV Tự luận (12 TN + 4 Đ/S + 4 TLN + 2 Tự luận = 10.0đ)
+  if (countP4 > 0) {
+    const perP4 = 1.0 / countP4; // 2 câu tự luận = 0.5đ/câu -> Tổng 1.0đ
+    const perP3 = countP3 > 0 ? 2.0 / countP3 : 0; // 4 câu TLN = 0.5đ/câu -> Tổng 2.0đ
+    return {
+      part1Score: 3.0,
+      part2Score: 4.0,
+      part3Score: 2.0,
+      part4Score: 1.0,
+      perP1: 0.25,
+      perP2Max: 1.0,
+      perP3,
+      perP4,
+      formatLabel: `Cấu trúc đề cô Yến (12 TN: 3.0đ • 4 Đ/S: 4.0đ • ${countP3} TLN: 2.0đ • ${countP4} Tự luận: 1.0đ)`,
+    };
+  }
 
   // Case 1: Pure Multiple Choice (e.g. 50 or 40 or 25 questions)
   if (countP2 === 0 && countP3 === 0 && countP1 > 0) {
@@ -138,7 +158,7 @@ export function calculateExamResult(
     });
   });
 
-  // 3. Calculate Part 3 score (Short answer / Essay weighted score)
+  // 3. Calculate Part 3 score (Short answer weighted score)
   let scorePart3 = 0;
 
   exam.part3.forEach((q) => {
@@ -162,11 +182,37 @@ export function calculateExamResult(
     }
   });
 
+  // 4. Calculate Part 4 score (Tự luận essay weighted score, if present)
+  let scorePart4 = 0;
+  if (exam.part4 && exam.part4.length > 0) {
+    exam.part4.forEach((q) => {
+      const maxQScore = q.pointWeight || structure.perP4 || 0.5;
+      chapterMax[q.chapterId] = (chapterMax[q.chapterId] || 0) + maxQScore;
+
+      const rawUserAns = (answers.part4?.[q.id] || "").trim().toLowerCase();
+      const cleanUserAns = rawUserAns.replace(/\./g, ",");
+      const cleanCorrect = q.correctAnswer.trim().toLowerCase().replace(/\./g, ",");
+
+      const isMatch =
+        cleanUserAns === cleanCorrect ||
+        (q.acceptableAnswers &&
+          q.acceptableAnswers.some((ans) => ans.trim().toLowerCase().replace(/\./g, ",") === cleanUserAns));
+
+      if (rawUserAns && isMatch) {
+        scorePart4 += maxQScore;
+        chapterEarned[q.chapterId] = (chapterEarned[q.chapterId] || 0) + maxQScore;
+      } else {
+        chapterWeakTopics[q.chapterId].push(q.topic);
+      }
+    });
+  }
+
   // Round scores to 2 decimal places to avoid floating point issues
   scorePart1 = Math.round(scorePart1 * 100) / 100;
   scorePart2 = Math.round(scorePart2 * 100) / 100;
   scorePart3 = Math.round(scorePart3 * 100) / 100;
-  const totalScore = Math.min(10, Math.round((scorePart1 + scorePart2 + scorePart3) * 100) / 100);
+  scorePart4 = Math.round(scorePart4 * 100) / 100;
+  const totalScore = Math.min(10, Math.round((scorePart1 + scorePart2 + scorePart3 + scorePart4) * 100) / 100);
 
   // Chapter radar analysis
   const chapterNames: Record<number, string> = {
@@ -215,17 +261,23 @@ export function calculateExamResult(
   exam.part3.forEach((q) => {
     if (answers.part3[q.id]?.trim()) answeredCount++;
   });
+  if (exam.part4) {
+    exam.part4.forEach((q) => {
+      if (answers.part4?.[q.id]?.trim()) answeredCount++;
+    });
+  }
 
   return {
     scorePart1,
     scorePart2,
     scorePart3,
+    scorePart4: exam.part4 && exam.part4.length > 0 ? scorePart4 : undefined,
     totalScore,
     chapterRadar,
     weakChapters,
     timeSpentSeconds,
     totalAnswered: answeredCount,
-    totalQuestions: exam.part1.length + exam.part2.length + exam.part3.length,
+    totalQuestions: exam.part1.length + exam.part2.length + exam.part3.length + (exam.part4?.length || 0),
     part2Breakdown,
     submittedAt: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
   };

@@ -225,6 +225,7 @@ export default function Home() {
         part1: {},
         part2: {},
         part3: {},
+        part4: {},
         flagged: {},
       });
       setTimeRemaining((newExam.durationMinutes || 90) * 60);
@@ -240,13 +241,14 @@ export default function Home() {
   const [isExamPaused, setIsExamPaused] = useState(false);
   const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
   const [isMobilePaletteOpen, setIsMobilePaletteOpen] = useState(false);
-  const [selectedSectionFilter, setSelectedSectionFilter] = useState<"ALL" | "PART_1" | "PART_2" | "PART_3">("ALL");
+  const [selectedSectionFilter, setSelectedSectionFilter] = useState<"ALL" | "PART_1" | "PART_2" | "PART_3" | "PART_4">("ALL");
 
   // User Answers
   const [answers, setAnswers] = useState<ExamUserAnswers>({
     part1: {},
     part2: {},
     part3: {},
+    part4: {},
     flagged: {},
   });
 
@@ -265,6 +267,7 @@ export default function Home() {
       part1: {},
       part2: {},
       part3: {},
+      part4: {},
       flagged: {},
     });
     setTimeRemaining(5400);
@@ -300,10 +303,11 @@ export default function Home() {
   };
 
   // Scroll to selected question
-  const handleScrollToQuestion = (section: "part1" | "part2" | "part3", id: number) => {
+  const handleScrollToQuestion = (section: "part1" | "part2" | "part3" | "part4", id: number) => {
     let prefix = "p1";
     if (section === "part2") prefix = "p2";
     if (section === "part3") prefix = "p3";
+    if (section === "part4") prefix = "p4";
 
     const elemId = `${prefix}-${id}`;
     setActiveQuestionId(elemId);
@@ -364,6 +368,7 @@ export default function Home() {
       part1: {},
       part2: {},
       part3: {},
+      part4: {},
       flagged: {},
     });
     setTimeRemaining(5400);
@@ -825,7 +830,11 @@ export default function Home() {
             {/* Section Filter Pills */}
             {(() => {
               const scoreStructure = getExamScoreStructure(exam);
-              const totalExamQuestions = (exam.part1?.length || 0) + (exam.part2?.length || 0) + (exam.part3?.length || 0);
+              const totalExamQuestions =
+                (exam.part1?.length || 0) +
+                (exam.part2?.length || 0) +
+                (exam.part3?.length || 0) +
+                (exam.part4?.length || 0);
 
               return (
                 <div className="space-y-3">
@@ -866,7 +875,7 @@ export default function Home() {
                             : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
                         }`}
                       >
-                        Phần II: Đúng / Sai ({exam.part2.length} câu - {scoreStructure.part2Score.toFixed(1)}đ)
+                        Phần II: Đúng / Sai ({exam.part2.length} câu - ${scoreStructure.part2Score.toFixed(1)}đ)
                       </button>
                     )}
 
@@ -882,6 +891,19 @@ export default function Home() {
                         {exam.part2.length === 0
                           ? `Tự luận / Điền số (${exam.part3.length} câu - ${scoreStructure.part3Score.toFixed(1)}đ)`
                           : `Phần III: Trả lời ngắn (${exam.part3.length} câu - ${scoreStructure.part3Score.toFixed(1)}đ)`}
+                      </button>
+                    )}
+
+                    {exam.part4 && exam.part4.length > 0 && (
+                      <button
+                        onClick={() => setSelectedSectionFilter("PART_4")}
+                        className={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer whitespace-nowrap ${
+                          selectedSectionFilter === "PART_4"
+                            ? "bg-purple-600 text-white border-purple-600"
+                            : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
+                        }`}
+                      >
+                        Phần IV: Tự luận ({exam.part4.length} câu - {(scoreStructure.part4Score || 1.0).toFixed(1)}đ)
                       </button>
                     )}
                   </div>
@@ -916,11 +938,18 @@ export default function Home() {
               };
               const isP3Done = (id: number) => Boolean(answers.part3[id]?.trim());
 
+              const isP4Done = (id: number) => Boolean(answers.part4?.[id]?.trim());
+
               let totalExamAnswered = 0;
               exam.part1?.forEach((q) => { if (isP1Done(q.id)) totalExamAnswered++; });
               exam.part2?.forEach((q) => { if (isP2Done(q.id)) totalExamAnswered++; });
               exam.part3?.forEach((q) => { if (isP3Done(q.id)) totalExamAnswered++; });
-              const totalExamQuestionsCount = (exam.part1?.length || 0) + (exam.part2?.length || 0) + (exam.part3?.length || 0);
+              exam.part4?.forEach((q) => { if (isP4Done(q.id)) totalExamAnswered++; });
+              const totalExamQuestionsCount =
+                (exam.part1?.length || 0) +
+                (exam.part2?.length || 0) +
+                (exam.part3?.length || 0) +
+                (exam.part4?.length || 0);
 
               return (
                 <div className="space-y-4">
@@ -1122,6 +1151,41 @@ export default function Home() {
                             }
                             isFlagged={Boolean(answers.flagged[`p3-${q.id}`])}
                             onToggleFlag={() => handleToggleFlag(`p3-${q.id}`)}
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    {/* PHẦN IV: CÂU HỎI TỰ LUẬN (1.0 ĐIỂM) */}
+                    {exam.part4 && exam.part4.length > 0 && (selectedSectionFilter === "ALL" || selectedSectionFilter === "PART_4") && (
+                      <div className="space-y-4 pt-4">
+                        <div className="bg-purple-50/90 border border-purple-200/90 p-4 rounded-2xl flex items-center justify-between">
+                          <div>
+                            <h3 className="font-extrabold text-purple-950 text-sm">
+                              PHẦN IV: CÂU HỎI TỰ LUẬN ({exam.part4.length} CÂU - {(scoreStructure.part4Score || 1.0).toFixed(1)} ĐIỂM)
+                            </h3>
+                            <p className="text-xs text-purple-700 mt-0.5">
+                              Thí sinh trình bày bài làm tự luận hoặc kết luận tối ưu thực tế. Mỗi câu tương ứng {((scoreStructure.part4Score || 1.0) / exam.part4.length).toFixed(2)} điểm.
+                            </p>
+                          </div>
+                          <span className="text-xs font-bold bg-white text-purple-800 px-3 py-1 rounded-full border border-purple-200 shadow-2xs">
+                            {((scoreStructure.part4Score || 1.0) / exam.part4.length).toFixed(2)}đ / câu
+                          </span>
+                        </div>
+
+                        {exam.part4.map((q) => (
+                          <ShortAnswerQuestion
+                            key={q.id}
+                            question={q}
+                            userAnswer={answers.part4?.[q.id]}
+                            onAnswerChange={(val) =>
+                              setAnswers((prev) => ({
+                                ...prev,
+                                part4: { ...(prev.part4 || {}), [q.id]: val },
+                              }))
+                            }
+                            isFlagged={Boolean(answers.flagged[`p4-${q.id}`])}
+                            onToggleFlag={() => handleToggleFlag(`p4-${q.id}`)}
                           />
                         ))}
                       </div>

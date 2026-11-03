@@ -69,7 +69,7 @@ export default function ShortAnswerQuestion({
 
   return (
     <div
-      id={`p3-${question.id}`}
+      id={`p${question.part || 3}-${question.id}`}
       className={`bg-white rounded-2xl border p-5 transition-all shadow-xs ${
         isFlagged ? "border-amber-300 ring-2 ring-amber-100" : "border-slate-200/90"
       }`}
@@ -77,14 +77,20 @@ export default function ShortAnswerQuestion({
       {/* Header */}
       <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="inline-flex items-center justify-center px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-bold text-xs">
-            Câu {question.number} {question.isEssay ? "(Tự luận)" : "(Phần III)"}
+          <span className={`inline-flex items-center justify-center px-2.5 py-1 rounded-lg font-bold text-xs ${
+            question.part === 4 ? "bg-purple-50 text-purple-800" : "bg-emerald-50 text-emerald-800"
+          }`}>
+            Câu {question.number} {question.part === 4 ? "(Tự luận)" : "(Phần III)"}
           </span>
           <span className="text-xs text-slate-500 font-medium bg-slate-100 px-2.5 py-1 rounded-md">
             {question.chapterName}
           </span>
-          <span className="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">
-            {question.isEssay ? `Tự luận (${question.pointWeight || 1.0}đ)` : "Trả lời ngắn"}
+          <span className={`text-xs px-2 py-0.5 rounded border font-medium ${
+            question.part === 4
+              ? "text-purple-700 bg-purple-50 border-purple-200"
+              : "text-emerald-700 bg-emerald-50 border-emerald-200"
+          }`}>
+            {question.part === 4 || question.isEssay ? `Tự luận (${question.pointWeight || 0.5}đ)` : "Trả lời ngắn"}
           </span>
         </div>
 

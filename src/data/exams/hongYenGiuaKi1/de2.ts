@@ -329,10 +329,12 @@ export const EXAM_GIUA_KI_1_DE2_HONG_YEN: ExamData = {
       unit: "giờ",
       explanation: "$C'(t) = 0 \\iff t^2 = 4 \\iff t = 2$ giờ."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số",
@@ -340,13 +342,13 @@ export const EXAM_GIUA_KI_1_DE2_HONG_YEN: ExamData = {
       correctAnswer: "x=-1, x=3",
       acceptableAnswers: ["x=-1, x=3"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Đồng biến trên $(-\\infty; -1)$ và $(3; +\\infty)$, nghịch biến trên $(-1; 3)$. Cực đại tại $x = -1$ ($y = 7$), cực tiểu tại $x = 3$ ($y = -25$)."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Máng nước",
@@ -361,7 +363,7 @@ export const EXAM_GIUA_KI_1_DE2_HONG_YEN: ExamData = {
       correctAnswer: "15",
       acceptableAnswers: ["15", "15cm"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Mặt cắt hình chữ nhật có đáy $60 - 2x$ và chiều cao $x$. Diện tích $S(x) = x(60 - 2x) = 60x - 2x^2$. Đỉnh parabol tại $x = -\\frac{60}{2(-2)} = 15\\text{ cm}$."
     }
   ]

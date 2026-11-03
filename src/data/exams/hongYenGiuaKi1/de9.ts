@@ -373,10 +373,12 @@ export const EXAM_GIUA_KI_1_DE9_HONG_YEN: ExamData = {
       unit: "m/s",
       explanation: "Vận tốc: $v(t) = s'(t) = -3t^2 + 30t + 36$. Gia tốc: $a(t) = v'(t) = -6t + 30$. Gia tốc bằng $0 \\iff -6t + 30 = 0 \\iff t = 5\\text{ s}$. Vận tốc khi đó là: $v(5) = -3(5^2) + 30(5) + 36 = -75 + 150 + 36 = 111\\text{ m/s}$."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số bậc ba",
@@ -384,13 +386,13 @@ export const EXAM_GIUA_KI_1_DE9_HONG_YEN: ExamData = {
       correctAnswer: "x=-1, x=2",
       acceptableAnswers: ["x=-1, x=2"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 6x^2 - 6x - 12 = 6(x^2 - x - 2) = 6(x + 1)(x - 2)$.\n$y' = 0 \\iff x = -1$ hoặc $x = 2$.\n3) Bảng biến thiên:\n- $y' > 0$ trên $(-\\infty; -1)$ và $(2; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; -1)$ và $(2; +\\infty)$.\n- $y' < 0$ trên $(-1; 2) \\implies$ hàm số nghịch biến trên khoảng $(-1; 2)$.\n4) Cực trị:\n- Hàm số đạt cực đại tại $x = -1$, giá trị cực đại $y(-1) = 12$.\n- Hàm số đạt cực tiểu tại $x = 2$, giá trị cực tiểu $y(2) = -15$."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       imageUrl: "/exams/hongYen/de9_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -399,7 +401,7 @@ export const EXAM_GIUA_KI_1_DE9_HONG_YEN: ExamData = {
       correctAnswer: "10cm",
       acceptableAnswers: ["10", "10cm", "x=10"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Sau khi cắt bỏ 4 hình vuông cạnh $x$ ($0 < x < 24$), đáy hộp là hình chữ nhật có kích thước $(90 - 2x)\\text{ cm}$ và $(48 - 2x)\\text{ cm}$, chiều cao hộp là $x\\text{ cm}$.\nThể tích hộp: $V(x) = x(90 - 2x)(48 - 2x) = 4x(45 - x)(24 - x) = 4(x^3 - 69x^2 + 1080x)$.\nĐạo hàm: $V'(x) = 4(3x^2 - 138x + 1080) = 12(x^2 - 46x + 360) = 12(x - 10)(x - 36)$.\nVới điều kiện $0 < x < 24$, phương trình $V'(x) = 0$ có nghiệm duy nhất $x = 10\\text{ cm}$.\nKhi qua $x = 10$, $V'(x)$ đổi dấu từ dương sang âm nên $V(x)$ đạt giá trị lớn nhất tại $x = 10\\text{ cm}$.\nVậy độ dài cạnh hình vuông cắt bỏ là $x = 10\\text{ cm}$."
     }
   ]

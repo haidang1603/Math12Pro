@@ -367,10 +367,12 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       unit: "m/s",
       explanation: "Vận tốc của chất điểm là: $v(t) = s'(t) = -3t^2 + 24t + 27 = -3(t^2 - 8t + 16) + 75 = -3(t - 4)^2 + 75 \\le 75\\text{ m/s}$. Giá trị lớn nhất đạt được là $75\\text{ m/s}$ tại thời điểm $t = 4\\text{ s}$."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số bậc ba",
@@ -378,13 +380,13 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       correctAnswer: "x=-2, x=4",
       acceptableAnswers: ["x=-2, x=4"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 3x^2 - 6x - 24 = 3(x^2 - 2x - 8) = 3(x + 2)(x - 4)$.\n$y' = 0 \\iff x = -2$ hoặc $x = 4$.\n3) Bảng xét dấu đạo hàm:\n- $y' > 0$ trên $(-\\infty; -2)$ và $(4; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; -2)$ và $(4; +\\infty)$.\n- $y' < 0$ trên $(-2; 4) \\implies$ hàm số nghịch biến trên khoảng $(-2; 4)$.\n4) Cực trị:\n- Hàm số đạt cực đại tại $x = -2$, giá trị cực đại $y(-2) = 38$.\n- Hàm số đạt cực tiểu tại $x = 4$, giá trị cực tiểu $y(4) = -70$."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       imageUrl: "/exams/hongYen/de8_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -393,7 +395,7 @@ export const EXAM_GIUA_KI_1_DE8_HONG_YEN: ExamData = {
       correctAnswer: "15cm",
       acceptableAnswers: ["15", "15cm", "x=15"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Sau khi cắt bỏ 4 góc hình vuông cạnh $x$ ($0 < x < 45$), đáy chiếc hộp là hình vuông có cạnh bằng $90 - 2x\\text{ (cm)}$ và chiều cao của hộp là $x\\text{ (cm)}$.\nThể tích của chiếc hộp là:\n$$V(x) = x(90 - 2x)^2 = 4x(45 - x)^2$$\nÁp dụng bất đẳng thức AM-GM cho ba số dương $2x, 45 - x, 45 - x$:\n$$2x \\cdot (45 - x) \\cdot (45 - x) \\le \\left(\\frac{2x + 45 - x + 45 - x}{3}\\right)^3 = 30^3 = 27000$$\nDo đó $V(x) = 2 \\cdot [2x(45 - x)^2] \\le 2 \\cdot 27000 = 54000\\text{ (cm}^3\\text{)}$.\nDấu bằng xảy ra khi $2x = 45 - x \\iff 3x = 45 \\iff x = 15\\text{ cm}$.\nVậy để thể tích hộp lớn nhất thì độ dài cạnh cắt bỏ là $x = 15\\text{ cm}$."
     }
   ]

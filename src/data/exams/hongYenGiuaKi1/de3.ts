@@ -329,10 +329,12 @@ export const EXAM_GIUA_KI_1_DE3_HONG_YEN: ExamData = {
       unit: "giờ",
       explanation: "$C'(t) = 0 \\iff t^2 = 25 \\iff t = 5$ giờ."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số",
@@ -340,13 +342,13 @@ export const EXAM_GIUA_KI_1_DE3_HONG_YEN: ExamData = {
       correctAnswer: "x=0, x=2",
       acceptableAnswers: ["x=0, x=2"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "$y' = 6x(x - 2) = 0 \\iff x = 0$ (cực đại $y = 1$) hoặc $x = 2$ (cực tiểu $y = -7$). Đồng biến trên $(-\\infty; 0)$ và $(2; +\\infty)$, nghịch biến trên $(0; 2)$."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Hàng rào",
@@ -363,7 +365,7 @@ export const EXAM_GIUA_KI_1_DE3_HONG_YEN: ExamData = {
       correctAnswer: "20",
       acceptableAnswers: ["20", "20m"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Tổng chiều dài rào $L = 2x + y = 2x + \\frac{800}{x} \\ge 2\\sqrt{1600} = 80$. Dấu bằng khi $2x = \\frac{800}{x} \\iff x^2 = 400 \\iff x = 20\\text{ m}$."
     }
   ]

@@ -369,10 +369,12 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       unit: "m",
       explanation: "Phương trình độ cao $h(t) = -5(t - 3)^2 + 45 \\le 45\\text{ m}$. Đẳng thức xảy ra khi $t = 3\\text{ s}$. Vậy độ cao lớn nhất đạt được là $45\\text{ m}$."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số bậc ba",
@@ -380,13 +382,13 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       correctAnswer: "x=1, x=2",
       acceptableAnswers: ["x=1, x=2"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 6x^2 - 18x + 12 = 6(x^2 - 3x + 2) = 6(x - 1)(x - 2)$.\n$y' = 0 \\iff x = 1$ hoặc $x = 2$.\n3) Bảng xét dấu đạo hàm:\n- $y' > 0$ trên $(-\\infty; 1)$ và $(2; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; 1)$ và $(2; +\\infty)$.\n- $y' < 0$ trên $(1; 2) \\implies$ hàm số nghịch biến trên $(1; 2)$.\n4) Cực trị:\n- Điểm cực đại của hàm số là $x = 1$, giá trị cực đại $y(1) = 2$.\n- Điểm cực tiểu của hàm số là $x = 2$, giá trị cực tiểu $y(2) = 1$."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       imageUrl: "/exams/hongYen/de6_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -395,7 +397,7 @@ export const EXAM_GIUA_KI_1_DE6_HONG_YEN: ExamData = {
       correctAnswer: "15cm",
       acceptableAnswers: ["15cm", "15", "x=15"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Khi gấp hai mép cao $x\\text{ cm}$ ($0 < x < 30$), chiều rộng của đáy máng là $60 - 2x\\text{ (cm)}$.\nDiện tích mặt cắt ngang hình chữ nhật của máng nước là:\n$$S(x) = x(60 - 2x) = -2x^2 + 60x = -2(x^2 - 30x) = -2(x - 15)^2 + 450 \\le 450\\text{ (cm}^2\\text{)}$$\nDấu đẳng thức xảy ra khi $x = 15\\text{ cm}$ (thỏa mãn $0 < x < 30$).\nVậy chiều cao mỗi mép máng cần gấp là $x = 15\\text{ cm}$ để diện tích mặt cắt ngang lớn nhất."
     }
   ]

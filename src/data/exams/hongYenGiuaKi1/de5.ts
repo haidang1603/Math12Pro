@@ -335,10 +335,12 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       unit: "m/s",
       explanation: "Vận tốc là đạo hàm của quãng đường: $v(t) = s'(t) = -3t^2 + 18t + 12 = -3(t - 3)^2 + 39 \\le 39\\text{ m/s}$. Giá trị lớn nhất là $39\\text{ m/s}$ tại $t = 3$ giây."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số",
@@ -346,13 +348,13 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       correctAnswer: "x=-1, x=3",
       acceptableAnswers: ["x=-1, x=3"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "$y' = -3x^2 + 6x + 9 = -3(x + 1)(x - 3) = 0 \\iff x = -1$ hoặc $x = 3$.\nHàm số đồng biến trên khoảng $(-1; 3)$, nghịch biến trên các khoảng $(-\\infty; -1)$ và $(3; +\\infty)$.\nĐiểm cực tiểu $x = -1$ ($y_{CT} = -7$), điểm cực đại $x = 3$ ($y_{CĐ} = 25$)."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       imageUrl: "/exams/hongYen/de5_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -361,7 +363,7 @@ export const EXAM_GIUA_KI_1_DE5_HONG_YEN: ExamData = {
       correctAnswer: "20m, 30m",
       acceptableAnswers: ["20m, 30m", "x=20, y=30", "20 và 30"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Gọi $x$ là chiều rộng (song song với rào ngăn) và $y$ là chiều dài khu vườn ($x > 0, y > 0$).\nDiện tích: $xy = 600 \\implies y = \\frac{600}{x}$.\nTổng chiều dài hàng rào gồm 3 đoạn chiều rộng $x$ (2 cạnh bao + 1 ngăn) và 2 đoạn chiều dài $y$:\n$$L(x) = 3x + 2y = 3x + \\frac{1200}{x} \\ge 2\\sqrt{3x \\cdot \\frac{1200}{x}} = 2\\sqrt{3600} = 120\\text{ (m)}$$\nDấu đẳng thức xảy ra khi $3x = \\frac{1200}{x} \\iff x^2 = 400 \\iff x = 20\\text{ m}$.\nKhi đó chiều dài $y = \\frac{600}{20} = 30\\text{ m}$.\nVậy chiều rộng là $20\\text{ m}$ và chiều dài là $30\\text{ m}$."
     }
   ]

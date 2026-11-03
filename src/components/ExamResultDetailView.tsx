@@ -47,7 +47,7 @@ export default function ExamResultDetailView({
   onAddMistake,
 }: ExamResultDetailViewProps) {
   const [filterType, setFilterType] = useState<"ALL" | "WRONG" | "CORRECT">("ALL");
-  const [sectionFilter, setSectionFilter] = useState<"ALL" | "PART_1" | "PART_2" | "PART_3">("ALL");
+  const [sectionFilter, setSectionFilter] = useState<"ALL" | "PART_1" | "PART_2" | "PART_3" | "PART_4">("ALL");
   const [savedMistakesMap, setSavedMistakesMap] = useState<Record<string, boolean>>({});
 
   const scoreStructure = useMemo(() => getExamScoreStructure(exam), [exam]);
@@ -139,8 +139,39 @@ export default function ExamResultDetailView({
     });
   }, [exam.part3, answers.part3]);
 
+  // Analyze Part 4 questions (Tự luận)
+  const part4Status = useMemo(() => {
+    if (!exam.part4 || exam.part4.length === 0) return [];
+    return exam.part4.map((q) => {
+      const rawUserAns = answers.part4?.[q.id] || "";
+      const isAnswered = Boolean(rawUserAns.trim());
+      const normalizedUser = rawUserAns.trim().replace(/\./g, ",");
+      const normalizedCorrect = q.correctAnswer.trim().replace(/\./g, ",");
+
+      let isCorrect = normalizedUser === normalizedCorrect;
+      if (!isCorrect && q.acceptableAnswers) {
+        isCorrect = q.acceptableAnswers.some(
+          (acc) => acc.trim().replace(/\./g, ",") === normalizedUser
+        );
+      }
+
+      return {
+        id: q.id,
+        number: q.number,
+        userAns: isAnswered ? rawUserAns : "—",
+        correctAns: q.correctAnswer,
+        isAnswered,
+        isCorrect,
+        isEssay: true,
+        topic: q.topic,
+        chapterName: q.chapterName,
+      };
+    });
+  }, [exam.part4, answers.part4]);
+
   // Total summary counts
-  const totalQuestions = exam.part1.length + exam.part2.length + exam.part3.length;
+  const totalQuestions =
+    exam.part1.length + exam.part2.length + exam.part3.length + (exam.part4?.length || 0);
   const correctCountP1 = part1Status.filter((q) => q.isCorrect).length;
   const wrongCountP1 = part1Status.filter((q) => q.isAnswered && !q.isCorrect).length;
   const unansCountP1 = part1Status.filter((q) => !q.isAnswered).length;
@@ -153,9 +184,13 @@ export default function ExamResultDetailView({
   const wrongCountP3 = part3Status.filter((q) => q.isAnswered && !q.isCorrect).length;
   const unansCountP3 = part3Status.filter((q) => !q.isAnswered).length;
 
-  const totalCorrect = correctCountP1 + correctCountP2 + correctCountP3;
-  const totalWrong = wrongCountP1 + wrongCountP2 + wrongCountP3;
-  const totalUnanswered = unansCountP1 + unansCountP3;
+  const correctCountP4 = part4Status.filter((q) => q.isCorrect).length;
+  const wrongCountP4 = part4Status.filter((q) => q.isAnswered && !q.isCorrect).length;
+  const unansCountP4 = part4Status.filter((q) => !q.isAnswered).length;
+
+  const totalCorrect = correctCountP1 + correctCountP2 + correctCountP3 + correctCountP4;
+  const totalWrong = wrongCountP1 + wrongCountP2 + wrongCountP3 + wrongCountP4;
+  const totalUnanswered = unansCountP1 + unansCountP3 + unansCountP4;
 
   // Smooth scroll helper
   const scrollToQuestion = (elemId: string) => {
@@ -215,6 +250,21 @@ export default function ExamResultDetailView({
       return true;
     });
   }, [exam.part3, answers.part3, filterType, sectionFilter]);
+
+  const filteredPart4 = useMemo(() => {
+    if (!exam.part4 || exam.part4.length === 0) return [];
+    if (sectionFilter !== "ALL" && sectionFilter !== "PART_4") return [];
+    return exam.part4.filter((q) => {
+      const userAns = (answers.part4?.[q.id] || "").trim().replace(/\./g, ",");
+      const correct = q.correctAnswer.trim().replace(/\./g, ",");
+      const isCorrect =
+        userAns === correct ||
+        Boolean(q.acceptableAnswers?.some((acc) => acc.trim().replace(/\./g, ",") === userAns));
+      if (filterType === "CORRECT") return isCorrect;
+      if (filterType === "WRONG") return !isCorrect;
+      return true;
+    });
+  }, [exam.part4, answers.part4, filterType, sectionFilter]);
 
   // Score rank styling
   const scoreBadgeColor =
@@ -378,8 +428,8 @@ export default function ExamResultDetailView({
           </div>
         </div>
 
-        {/* 3 Section Breakdown Bars */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+        {/* Section Breakdown Bars */}
+        <div className={`grid grid-cols-1 ${exam.part4 && exam.part4.length > 0 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"} gap-3 mt-4`}>
           <div className="bg-white/5 p-3 rounded-xl border border-white/10 text-xs">
             <div className="flex items-center justify-between text-slate-300 mb-1">
               <span>Phần I (4 lựa chọn):</span>
@@ -408,7 +458,7 @@ export default function ExamResultDetailView({
 
           <div className="bg-white/5 p-3 rounded-xl border border-white/10 text-xs">
             <div className="flex items-center justify-between text-slate-300 mb-1">
-              <span>Phần III (Trả lời ngắn / TL):</span>
+              <span>Phần III (Trả lời ngắn):</span>
               <strong className="text-white font-mono">{result.scorePart3.toFixed(2)} / {scoreStructure.part3Score.toFixed(1)}đ</strong>
             </div>
             <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
@@ -418,6 +468,21 @@ export default function ExamResultDetailView({
               />
             </div>
           </div>
+
+          {exam.part4 && exam.part4.length > 0 && (
+            <div className="bg-white/5 p-3 rounded-xl border border-white/10 text-xs">
+              <div className="flex items-center justify-between text-slate-300 mb-1">
+                <span>Phần IV (Tự luận):</span>
+                <strong className="text-white font-mono">{(result.scorePart4 || 0).toFixed(2)} / {(scoreStructure.part4Score || 1.0).toFixed(1)}đ</strong>
+              </div>
+              <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                <div
+                  className="bg-purple-500 h-full rounded-full"
+                  style={{ width: `${(scoreStructure.part4Score || 1.0) > 0 ? ((result.scorePart4 || 0) / (scoreStructure.part4Score || 1.0)) * 100 : 0}%` }}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -552,12 +617,12 @@ export default function ExamResultDetailView({
           {part3Status.length > 0 && (
             <div className="pt-2 border-t border-slate-100">
               <div className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2 flex items-center justify-between">
-                <span>Phần III: Trả lời ngắn & Tự luận ({part3Status.length} câu)</span>
+                <span>Phần III: Trả lời ngắn ({part3Status.length} câu)</span>
                 <span className="text-slate-400 font-normal">
                   Đúng {correctCountP3}/{part3Status.length} câu
                 </span>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-2">
                 {part3Status.map((q) => {
                   const cardBg = q.isCorrect
                     ? "bg-emerald-50 border-emerald-300 text-emerald-900 hover:bg-emerald-100"
@@ -573,13 +638,57 @@ export default function ExamResultDetailView({
                       title={`Câu ${q.number}: Bạn nhập [${q.userAns}], Đáp án: [${q.correctAns}]`}
                     >
                       <span className="block text-[11px] font-bold">
-                        Câu {q.number} {q.isEssay ? "(TL)" : ""}
+                        Câu {q.number}
                       </span>
                       <span className="block text-xs font-black font-mono truncate mt-0.5">
                         {q.isCorrect ? (
                           <span className="text-emerald-700">{q.correctAns} ✓</span>
                         ) : (
                           <span className="text-rose-600">Đ/A: {q.correctAns}</span>
+                        )}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Part 4 Matrix (Tự luận) */}
+          {part4Status.length > 0 && (
+            <div className="pt-2 border-t border-slate-100">
+              <div className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2 flex items-center justify-between">
+                <span>Phần IV: Tự luận ({part4Status.length} câu)</span>
+                <span className="text-slate-400 font-normal">
+                  Đúng {correctCountP4}/{part4Status.length} câu
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {part4Status.map((q) => {
+                  const cardBg = q.isCorrect
+                    ? "bg-emerald-50 border-emerald-300 text-emerald-900 hover:bg-emerald-100"
+                    : q.isAnswered
+                    ? "bg-rose-50 border-rose-300 text-rose-900 hover:bg-rose-100"
+                    : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100";
+
+                  return (
+                    <button
+                      key={q.id}
+                      onClick={() => scrollToQuestion(`p4-${q.id}`)}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer shadow-2xs ${cardBg}`}
+                      title={`Câu ${q.number} (Tự luận): Bạn nhập [${q.userAns}], Đáp án: [${q.correctAns}]`}
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <strong className="text-xs font-bold">Câu {q.number} (Tự luận)</strong>
+                        <span className="text-[11px] font-mono font-bold">
+                          {q.isCorrect ? "✓ Đạt 0.5đ" : q.isAnswered ? "✗ 0.0đ" : "Chưa làm"}
+                        </span>
+                      </div>
+                      <span className="block text-xs font-mono truncate">
+                        {q.isCorrect ? (
+                          <span className="text-emerald-700 font-bold">{q.correctAns} ✓</span>
+                        ) : (
+                          <span className="text-rose-600 font-semibold">Đáp số chuẩn: {q.correctAns}</span>
                         )}
                       </span>
                     </button>
@@ -679,7 +788,19 @@ export default function ExamResultDetailView({
                   : "bg-emerald-50 text-emerald-700 border-emerald-100 hover:bg-emerald-100"
               }`}
             >
-              Phần III / Tự luận ({exam.part3.length} câu)
+              Phần III ({exam.part3.length} câu)
+            </button>
+          )}
+          {exam.part4 && exam.part4.length > 0 && (
+            <button
+              onClick={() => setSectionFilter("PART_4")}
+              className={`px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer whitespace-nowrap ${
+                sectionFilter === "PART_4"
+                  ? "bg-purple-600 text-white border-purple-600"
+                  : "bg-purple-50 text-purple-700 border-purple-100 hover:bg-purple-100"
+              }`}
+            >
+              Phần IV: Tự luận ({exam.part4.length} câu)
             </button>
           )}
         </div>
@@ -817,10 +938,10 @@ export default function ExamResultDetailView({
               <div className="bg-emerald-950 text-white px-5 py-3 rounded-2xl flex items-center justify-between shadow-xs">
                 <div>
                   <h3 className="font-black text-sm uppercase tracking-wider">
-                    PHẦN III: CÂU TRẢ LỜI NGẮN & BÀI TOÁN TỰ LUẬN
+                    PHẦN III: CÂU HỎI TRẢ LỜI NGẮN
                   </h3>
                   <span className="text-[11px] text-emerald-200">
-                    Điền kết quả chính xác hoặc trình bày phương pháp giải tối ưu thực tế.
+                    Điền kết quả chính xác dưới dạng số thập phân, phân số hoặc số nguyên.
                   </span>
                 </div>
                 <span className="text-xs font-mono font-bold bg-white/20 px-3 py-1 rounded-full">
@@ -846,8 +967,94 @@ export default function ExamResultDetailView({
             </section>
           )}
 
+          {/* ==================== PHẦN IV ==================== */}
+          {filteredPart4.length > 0 && (
+            <section className="space-y-4 pt-4">
+              <div className="bg-purple-950 text-white px-5 py-3 rounded-2xl flex items-center justify-between shadow-xs">
+                <div>
+                  <h3 className="font-black text-sm uppercase tracking-wider">
+                    PHẦN IV: BÀI TOÁN TỰ LUẬN
+                  </h3>
+                  <span className="text-[11px] text-purple-200">
+                    Khảo sát sự biến thiên và vẽ đồ thị hàm số / Bài toán ứng dụng thực tế tối ưu hóa (Trình bày chi tiết từng bước).
+                  </span>
+                </div>
+                <span className="text-xs font-mono font-bold bg-white/20 px-3 py-1 rounded-full">
+                  {(scoreStructure.part4Score || 1.0).toFixed(1)} Điểm
+                </span>
+              </div>
+
+              <div className="space-y-4">
+                {filteredPart4.map((q) => {
+                  const userAns = (answers.part4?.[q.id] || "").trim().replace(/\./g, ",");
+                  const correct = q.correctAnswer.trim().replace(/\./g, ",");
+                  const isCorrect =
+                    userAns === correct ||
+                    Boolean(q.acceptableAnswers?.some((acc) => acc.trim().replace(/\./g, ",") === userAns));
+                  const isSaved = savedMistakesMap[`p4-${q.id}`];
+
+                  return (
+                    <div key={q.id} className="relative group">
+                      <ShortAnswerQuestion
+                        question={q}
+                        userAnswer={answers.part4?.[q.id]}
+                        onAnswerChange={() => {}}
+                        onToggleFlag={() => {}}
+                        isReviewMode={true}
+                      />
+
+                      {!isCorrect && onAddMistake && (
+                        <div className="mt-2 flex justify-end">
+                          <button
+                            disabled={isSaved}
+                            onClick={() =>
+                              handleSaveToNotebook(`p4-${q.id}`, {
+                                id: `mistake-p4-${q.id}-${Date.now()}`,
+                                source: "MOCK_EXAM",
+                                questionNumber: q.number,
+                                part: 4,
+                                chapterId: q.chapterId,
+                                chapterTitle: q.chapterName,
+                                topic: q.topic,
+                                problem: q.content,
+                                studentAnswer: answers.part4?.[q.id] || "Chưa nhập",
+                                correctAnswer: q.correctAnswer,
+                                explanation: q.explanation,
+                                tag: "Sai tính toán",
+                                reviewCount: 0,
+                                resolved: false,
+                                date: new Date().toLocaleDateString("vi-VN"),
+                              })
+                            }
+                            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
+                              isSaved
+                                ? "bg-slate-100 text-slate-500 border border-slate-200 cursor-default"
+                                : "bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200"
+                            }`}
+                          >
+                            {isSaved ? (
+                              <>
+                                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                                <span>Đã lưu vào Sổ tay câu sai</span>
+                              </>
+                            ) : (
+                              <>
+                                <BookmarkPlus className="w-3.5 h-3.5" />
+                                <span>Lưu câu sai vào Sổ tay để luyện lại</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
           {/* Empty state if all filtered out */}
-          {filteredPart1.length === 0 && filteredPart2.length === 0 && filteredPart3.length === 0 && (
+          {filteredPart1.length === 0 && filteredPart2.length === 0 && filteredPart3.length === 0 && filteredPart4.length === 0 && (
             <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center space-y-3">
               <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-500 mx-auto flex items-center justify-center">
                 <Filter className="w-6 h-6" />
@@ -970,9 +1177,9 @@ export default function ExamResultDetailView({
             {part3Status.length > 0 && (
               <div className="pt-2 border-t border-slate-100">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
-                  Phần III / Tự luận
+                  Phần III (Trả lời ngắn)
                 </span>
-                <div className="grid grid-cols-3 gap-1.5">
+                <div className="grid grid-cols-4 gap-1.5">
                   {part3Status.map((q) => (
                     <button
                       key={q.id}
@@ -987,6 +1194,33 @@ export default function ExamResultDetailView({
                       title={`Câu ${q.number}: ${q.isCorrect ? "Đúng" : "Sai"}`}
                     >
                       {q.number}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Part 4 Links (Tự luận) */}
+            {part4Status.length > 0 && (
+              <div className="pt-2 border-t border-slate-100">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                  Phần IV (Tự luận)
+                </span>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {part4Status.map((q) => (
+                    <button
+                      key={q.id}
+                      onClick={() => scrollToQuestion(`p4-${q.id}`)}
+                      className={`h-8 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer border ${
+                        q.isCorrect
+                          ? "bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100"
+                          : q.isAnswered
+                          ? "bg-rose-50 text-rose-800 border-rose-300 hover:bg-rose-100"
+                          : "bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100"
+                      }`}
+                      title={`Câu ${q.number} (Tự luận): ${q.isCorrect ? "Đúng" : "Sai"}`}
+                    >
+                      TL {q.number}
                     </button>
                   ))}
                 </div>

@@ -366,10 +366,12 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       unit: "m/s",
       explanation: "Vận tốc $v(t) = s'(t) = -3t^2 + 12t + 24$. Gia tốc $a(t) = v'(t) = -6t + 12$. Gia tốc bằng $0 \\iff -6t + 12 = 0 \\iff t = 2\\text{ s}$. Vận tốc tức thời khi đó: $v(2) = -3(2^2) + 12(2) + 24 = -12 + 24 + 24 = 36\\text{ m/s}$."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số",
@@ -377,13 +379,13 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       correctAnswer: "x=1, x=3",
       acceptableAnswers: ["x=1, x=3"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "1) Tập xác định: $D = \\mathbb{R}$.\n2) Đạo hàm: $y' = 3x^2 - 12x + 9 = 3(x - 1)(x - 3)$.\n$y' = 0 \\iff x = 1$ hoặc $x = 3$.\n3) Bảng xét dấu đạo hàm:\n- $y' > 0$ trên $(-\\infty; 1)$ và $(3; +\\infty) \\implies$ hàm số đồng biến trên $(-\\infty; 1)$ và $(3; +\\infty)$.\n- $y' < 0$ trên $(1; 3) \\implies$ hàm số nghịch biến trên khoảng $(1; 3)$.\n4) Cực trị:\n- Hàm số đạt cực đại tại $x = 1$, giá trị cực đại $y(1) = 3$.\n- Hàm số đạt cực tiểu tại $x = 3$, giá trị cực tiểu $y(3) = -1$."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       imageUrl: "/exams/hongYen/de7_p3_c2.png",
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
@@ -392,7 +394,7 @@ export const EXAM_GIUA_KI_1_DE7_HONG_YEN: ExamData = {
       correctAnswer: "3200m2",
       acceptableAnswers: ["3200", "3200m2", "3200 m2"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "Gọi $x$ là chiều rộng của khu đất (độ dài 2 cạnh vuông góc với bờ sông, $0 < x < 80$).\nVì bờ sông không cần rào nên cạnh chiều dài song song với bờ sông có độ dài là $160 - 2x\\text{ (m)}$.\nDiện tích khu đất rào được là:\n$$S(x) = x(160 - 2x) = -2x^2 + 160x = -2(x - 40)^2 + 3200 \\le 3200\\text{ (m}^2\\text{)}$$\nDấu đẳng thức xảy ra khi $x = 40\\text{ m}$.\nKhi đó chiều dài khu đất là $160 - 2(40) = 80\\text{ m}$.\nVậy diện tích lớn nhất mà bác nông dân có thể rào được là $3200\\text{ m}^2$."
     }
   ]

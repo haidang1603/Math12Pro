@@ -348,10 +348,12 @@ export const EXAM_GIUA_KI_1_DE1_HONG_YEN: ExamData = {
       unit: "giờ",
       explanation: "$C'(t) = \\frac{8(16 - t^2)}{(t^2 + 16)^2} = 0 \\iff t = 4$ giờ (với $t \\ge 0$)."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát hàm số",
@@ -359,13 +361,13 @@ export const EXAM_GIUA_KI_1_DE1_HONG_YEN: ExamData = {
       correctAnswer: "x=-1, x=3",
       acceptableAnswers: ["x=-1, x=3", "-1 và 3"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "$y' = -3x^2 + 6x + 9 = -3(x + 1)(x - 3) = 0 \\iff x = -1$ hoặc $x = 3$.\nHàm số đồng biến trên $(-1; 3)$, nghịch biến trên $(-\\infty; -1)$ và $(3; +\\infty)$.\nCực tiểu tại $x = -1$ ($y_{CT} = -6$), cực đại tại $x = 3$ ($y_{CĐ} = 26$)."
     },
     {
-      id: 6,
-      part: 3,
-      number: 6,
+      id: 2,
+      part: 4,
+      number: 2,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Tối ưu hộp chữ nhật",
@@ -390,7 +392,7 @@ export const EXAM_GIUA_KI_1_DE1_HONG_YEN: ExamData = {
       correctAnswer: "7,85",
       acceptableAnswers: ["7,85", "7.85"],
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "$V(x) = x(60 - 2x)(40 - 2x) = 4(x^3 - 50x^2 + 600x)$ với $0 < x < 20$.\n$V'(x) = 4(3x^2 - 100x + 600) = 0 \\implies x = \\frac{50 - 10\\sqrt{7}}{3} \\approx 7{,}85\\text{ cm}$."
     }
   ]

@@ -467,10 +467,12 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
       unit: "giờ",
       explanation: "Tìm $t \\ge 0$ để hàm số $C(t) = \\frac{10t}{t^2 + 9}$ đạt giá trị lớn nhất.\nĐạo hàm của $C(t)$:\n$$C'(t) = \\frac{10(t^2 + 9) - 10t(2t)}{(t^2 + 9)^2} = \\frac{10t^2 + 90 - 20t^2}{(t^2 + 9)^2} = \\frac{10(9 - t^2)}{(t^2 + 9)^2}$$\nVới $t \\ge 0$, ta có $C'(t) = 0 \\iff 9 - t^2 = 0 \\iff t = 3\\text{ (giờ)}$.\nBảng biến thiên cho thấy $C'(t) > 0$ trên $(0; 3)$ và $C'(t) < 0$ trên $(3; +\\infty)$. Do đó nồng độ thuốc đạt cực đại tuyệt đối tại thời điểm $t = 3$ giờ sau khi tiêm (với nồng độ tối đa là $C(3) = \\frac{30}{18} = \\frac{5}{3}\\text{ mg/L}$)."
     },
+  ],
+  part4: [
     {
-      id: 5,
-      part: 3,
-      number: 5,
+      id: 1,
+      part: 4,
+      number: 1,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Khảo sát đơn điệu và cực trị hàm số",
@@ -479,14 +481,14 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
       acceptableAnswers: ["x=-1, x=3", "-1 và 3", "-1, 3"],
       unit: "",
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "HƯỚNG DẪN CHẤM CHI TIẾT TỰ LUẬN:\n1. Tập xác định: $D = \\mathbb{R}$.\n2. Đạo hàm: $y' = 3x^2 - 6x - 9$.\n   Cho $y' = 0 \\iff 3(x^2 - 2x - 3) = 0 \\iff x = -1$ hoặc $x = 3$.\n3. Bảng xét dấu đạo hàm / bảng biến thiên:\n   - Trên khoảng $(-\\infty; -1)$, $y' > 0 \\implies$ hàm số đồng biến.\n   - Trên khoảng $(-1; 3)$, $y' < 0 \\implies$ hàm số nghịch biến.\n   - Trên khoảng $(3; +\\infty)$, $y' > 0 \\implies$ hàm số đồng biến.\n4. Kết luận:\n   - Hàm số đồng biến trên các khoảng $(-\\infty; -1)$ và $(3; +\\infty)$.\n   - Hàm số nghịch biến trên khoảng $(-1; 3)$.\n   - Hàm số đạt cực đại tại điểm $x = -1$, giá trị cực đại $y_{CĐ} = f(-1) = 9$.\n   - Hàm số đạt cực tiểu tại điểm $x = 3$, giá trị cực tiểu $y_{CT} = f(3) = -23$."
     },
     {
-      id: 6,
-      part: 3,
+      id: 2,
+      part: 4,
       imageUrl: "/exams/hongYen/de4_p3_c2.png",
-      number: 6,
+      number: 2,
       chapterId: 1,
       chapterName: "Đạo hàm & Khảo sát đồ thị",
       topic: "Tự luận: Bài toán cắt tôn tối ưu thể tích hộp",
@@ -513,7 +515,7 @@ export const EXAM_GIUA_KI_1_DE4_HONG_YEN: ExamData = {
       acceptableAnswers: ["10", "10cm", "10 cm"],
       unit: "cm",
       isEssay: true,
-      pointWeight: 1.0,
+      pointWeight: 0.5,
       explanation: "HƯỚNG DẪN GIẢI CHI TIẾT TỰ LUẬN:\n1. Điều kiện của cạnh cắt: $0 < x < \\frac{50}{2} = 25\\text{ (cm)}$.\n2. Kích thước đáy chiếc hộp hình chữ nhật sau khi gập lại:\n   - Chiều rộng đáy hộp là: $50 - 2x\\text{ (cm)}$.\n   - Chiều dài đáy hộp là: $80 - 2x\\text{ (cm)}$.\n   - Chiều cao chiếc hộp là: $x\\text{ (cm)}$.\n3. Thể tích chiếc hộp là:\n   $$V(x) = x(50 - 2x)(80 - 2x) = 4x(25 - x)(40 - x) = 4(x^3 - 65x^2 + 1000x)$$\n4. Tìm $x \\in (0; 25)$ để $V(x)$ đạt giá trị lớn nhất:\n   $$V'(x) = 4(3x^2 - 130x + 1000)$$\n   Cho $V'(x) = 0 \\iff 3x^2 - 130x + 1000 = 0$.\n   Giải phương trình bậc hai:\n   $$\\Delta' = (-65)^2 - 3(1000) = 4225 - 3000 = 1225 = 35^2$$\n   $$\\implies x_1 = \\frac{65 - 35}{3} = 10\\text{ (thỏa mãn } 0 < x < 25\\text{)}$$\n   $$\\implies x_2 = \\frac{65 + 35}{3} = \\frac{100}{3} \\approx 33{,}3\\text{ (loại do } x > 25\\text{)}$$\n5. Lập bảng biến thiên trên $(0; 25)$, ta thấy hàm số $V(x)$ đạt giá trị lớn nhất tại $x = 10\\text{ cm}$.\n   Khi đó thể tích tối đa của chiếc hộp là $V(10) = 10(50 - 20)(80 - 20) = 18000\\text{ cm}^3$ ($18\\text{ lít}$).\nVậy độ dài $x$ cần tìm là $10\\text{ cm}$."
     }
   ]

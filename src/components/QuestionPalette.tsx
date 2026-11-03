@@ -9,7 +9,7 @@ interface QuestionPaletteProps {
   exam: ExamData;
   answers: ExamUserAnswers;
   activeQuestionId: string | null;
-  onSelectQuestion: (section: "part1" | "part2" | "part3", id: number) => void;
+  onSelectQuestion: (section: "part1" | "part2" | "part3" | "part4", id: number) => void;
   onSubmitClick: () => void;
 }
 
@@ -36,6 +36,9 @@ export default function QuestionPalette({
   // Check completion of part 3 questions
   const isPart3Answered = (id: number) => Boolean(answers.part3[id]?.trim());
 
+  // Check completion of part 4 questions (Tự luận)
+  const isPart4Answered = (id: number) => Boolean(answers.part4?.[id]?.trim());
+
   // Count total answered
   let answeredCount = 0;
   exam.part1.forEach((q) => {
@@ -47,9 +50,18 @@ export default function QuestionPalette({
   exam.part3.forEach((q) => {
     if (isPart3Answered(q.id)) answeredCount++;
   });
+  if (exam.part4) {
+    exam.part4.forEach((q) => {
+      if (isPart4Answered(q.id)) answeredCount++;
+    });
+  }
 
   const flaggedCount = Object.values(answers.flagged).filter(Boolean).length;
-  const totalQuestions = (exam.part1?.length || 0) + (exam.part2?.length || 0) + (exam.part3?.length || 0);
+  const totalQuestions =
+    (exam.part1?.length || 0) +
+    (exam.part2?.length || 0) +
+    (exam.part3?.length || 0) +
+    (exam.part4?.length || 0);
   const structure = getExamScoreStructure(exam);
 
   return (
@@ -193,7 +205,7 @@ export default function QuestionPalette({
         </div>
       )}
 
-      {/* Section 3: Part 3 (Trả lời ngắn / Tự luận) - Render only if questions exist */}
+      {/* Section 3: Part 3 (Trả lời ngắn) - Render only if questions exist */}
       {exam.part3 && exam.part3.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-2">
@@ -228,6 +240,51 @@ export default function QuestionPalette({
                   className={`relative h-9 rounded-lg border text-xs font-medium flex items-center justify-center transition-all ${btnStyle}`}
                 >
                   {q.number}
+                  {flagged && (
+                    <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-500 border border-white" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Section 4: Part 4 (Tự luận) - Render if questions exist */}
+      {exam.part4 && exam.part4.length > 0 && (
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold text-purple-800 uppercase tracking-wide">
+              Phần IV: Câu hỏi Tự luận
+            </span>
+            <span className="text-[11px] text-purple-700 font-semibold bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">
+              {exam.part4.length} câu • {(structure.part4Score || 1.0).toFixed(1)}đ
+            </span>
+          </div>
+          <div className="grid grid-cols-6 gap-1.5 max-h-56 overflow-y-auto pr-1">
+            {exam.part4.map((q) => {
+              const answered = isPart4Answered(q.id);
+              const flagged = answers.flagged[`p4-${q.id}`];
+              const isActive = activeQuestionId === `p4-${q.id}`;
+
+              let btnStyle = "bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50";
+              if (answered) {
+                btnStyle = "bg-purple-600 text-white border-purple-600 shadow-xs hover:bg-purple-700";
+              }
+              if (isActive) {
+                btnStyle += " ring-2 ring-purple-500 ring-offset-1 font-bold";
+              }
+              if (flagged) {
+                btnStyle += " ring-2 ring-amber-400 border-amber-400";
+              }
+
+              return (
+                <button
+                  key={q.id}
+                  onClick={() => onSelectQuestion("part4", q.id)}
+                  className={`relative h-9 rounded-lg border text-xs font-medium flex items-center justify-center transition-all ${btnStyle}`}
+                >
+                  TL {q.number}
                   {flagged && (
                     <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-500 border border-white" />
                   )}
