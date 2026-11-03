@@ -6,21 +6,44 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "jest",
+    "db:push": "prisma db push --schema=backend/prisma/schema.prisma",
+    "db:generate": "prisma generate --schema=backend/prisma/schema.prisma",
+    "db:seed": "npx ts-node backend/prisma/seed.ts"
   },
   "dependencies": {
+    "@nestjs/common": "^12.2.0",
+    "@nestjs/core": "^12.2.0",
+    "@prisma/client": "6.4.1",
+    "@supabase/supabase-js": "^2.118.0",
+    "canvas-confetti": "^1.9.4",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "katex": "^0.19.1",
+    "lucide-react": "^1.61.0",
+    "mammoth": "^1.13.0",
     "next": "16.4.3",
+    "pdf-parse": "^2.4.5",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "recharts": "^3.10.1",
+    "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/jest": "^30.0.0",
+    "@types/katex": "^0.16.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
+    "jest": "^30.5.2",
+    "prisma": "6.4.1",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.15",
     "typescript": "^5"
   }
 }

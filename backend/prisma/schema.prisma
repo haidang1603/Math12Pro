@@ -1,0 +1,245 @@
+// Prisma Schema for Math12Pro Platform
+// Database: PostgreSQL with Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum MilestoneType {
+  MID_TERM_1       // Thi thử Giữa Học kì 1 (Trọng tâm Chương 1, 2)
+  END_TERM_1       // Thi thử Cuối Học kì 1 (Toàn bộ Chương 1, 2, 3)
+  TERM_2           // Thi thử Giữa kì 2 & Cuối kì 2 (Chương 4, 5, 6)
+  GRADUATION_THPT  // Chiến dịch Thi thử Tốt nghiệp THPT (6 chương)
+}
+
+enum QuestionFormat {
+  SINGLE_CHOICE    // Phần I: 4 lựa chọn (0.25đ/câu)
+  TRUE_FALSE       // Phần II: Đúng/Sai 4 ý (lũy tiến tối đa 1.0đ/câu)
+  SHORT_ANSWER     // Phần III: Trả lời ngắn tối đa 4 ký tự (0.5đ/câu)
+}
+
+enum DifficultyLevel {
+  NHAN_BIET        // Nhận biết
+  THONG_HIEU       // Thông hiểu
+  VAN_DUNG         // Vận dụng
+  VAN_DUNG_CAO     // Vận dụng cao
+}
+
+enum MistakeSource {
+  PRACTICE         // Phát sinh từ Ôn luyện chương
+  MOCK_EXAM        // Phát sinh từ Thi thử
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  fullName     String   @map("full_name")
+  avatarUrl    String?  @map("avatar_url")
+  role         UserRole @default(STUDENT)
+  streakDays   Int      @default(0) @map("streak_days")
+  lastActiveAt DateTime @default(now()) @map("last_active_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  masteryRecords  ChapterMastery[]
+  examAttempts    ExamAttempt[]
+  mistakeNotebook MistakeNotebook[]
+
+  @@map("users")
+}
+
+model Chapter {
+  id          Int      @id // 1 to 6
+  number      Int      @unique
+  title       String
+  shortTitle  String   @map("short_title")
+  description String
+  iconName    String   @map("icon_name")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  topics         Topic[]
+  questions      Question[]
+  masteryRecords ChapterMastery[]
+
+  @@map("chapters")
+}
+
+model Topic {
+  id          String   @id @default(uuid())
+  chapterId   Int      @map("chapter_id")
+  title       String
+  order       Int      @default(1)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  chapter      Chapter       @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  problemTypes ProblemType[]
+  questions    Question[]
+
+  @@index([chapterId])
+  @@map("topics")
+}
+
+model ProblemType {
+  id          String   @id @default(uuid())
+  topicId     String   @map("topic_id")
+  name        String
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  topic           Topic             @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  questions       Question[]
+  mistakeNotebook MistakeNotebook[]
+
+  @@index([topicId])
+  @@map("problem_types")
+}
+
+model Question {
+  id             String          @id @default(uuid())
+  chapterId      Int             @map("chapter_id")
+  topicId        String          @map("topic_id")
+  problemTypeId  String?         @map("problem_type_id")
+  examId         String?         @map("exam_id")
+  format         QuestionFormat
+  difficulty     DifficultyLevel @default(THONG_HIEU)
+  questionNumber Int?            @map("question_number") // Number in exam (1-12, 1-4, 1-6)
+  content        String          @db.Text
+  maxPoints      Decimal         @default(0.25) @db.Decimal(4, 2) @map("max_points")
+
+  // For SINGLE_CHOICE: [{"key": "A", "text": "$...$"}, ...]
+  options            Json?
+  // Correct key for SINGLE_CHOICE ("A"|"B"|"C"|"D") or normalized answer for SHORT_ANSWER ("18", "2,5")
+  correctAnswer      String?         @map("correct_answer")
+  // Acceptable alternative strings for SHORT_ANSWER (e.g. ["2,5", "2.5"])
+  acceptableAnswers  Json?           @map("acceptable_answers")
+  // Statements for TRUE_FALSE: [{"key": "a", "text": "...", "correct": true, "explanation": "..."}, ...]
+  statements         Json?
+  
+  generalExplanation   String          @db.Text @map("general_explanation")
+  statementExplanation Json?           @map("statement_explanation")
+  unit                 String?
+  createdAt            DateTime        @default(now()) @map("created_at")
+
+  chapter         Chapter           @relation(fields: [chapterId], references: [id])
+  topic           Topic             @relation(fields: [topicId], references: [id])
+  problemType     ProblemType?      @relation(fields: [problemTypeId], references: [id], onDelete: SetNull)
+  exam            Exam?             @relation(fields: [examId], references: [id], onDelete: SetNull)
+  attemptAnswers  AttemptAnswer[]
+  mistakeNotebook MistakeNotebook[]
+
+  @@index([chapterId, format, difficulty])
+  @@index([topicId])
+  @@index([examId])
+  @@map("questions")
+}
+
+model ChapterMastery {
+  id              String   @id @default(uuid())
+  userId          String   @map("user_id")
+  chapterId       Int      @map("chapter_id")
+  totalAttempted  Int      @default(0) @map("total_attempted")
+  totalCorrect    Int      @default(0) @map("total_correct")
+  masteryScore    Decimal  @default(0.00) @db.Decimal(5, 2) @map("mastery_score") // 0.00 to 100.00 %
+  lastPracticedAt DateTime @default(now()) @map("last_practiced_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chapterId])
+  @@index([userId])
+  @@map("chapter_mastery")
+}
+
+model Exam {
+  id              String        @id @default(uuid())
+  title           String
+  milestone       MilestoneType
+  durationMinutes Int           @default(90) @map("duration_minutes")
+  totalPoints     Decimal       @default(10.00) @db.Decimal(4, 2) @map("total_points")
+  isActive        Boolean       @default(true) @map("is_active")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  questions Question[]
+  attempts  ExamAttempt[]
+
+  @@index([milestone])
+  @@map("exams")
+}
+
+model ExamAttempt {
+  id               String   @id @default(uuid())
+  userId           String   @map("user_id")
+  examId           String   @map("exam_id")
+  scorePart1       Decimal  @db.Decimal(4, 2) @map("score_part_1")
+  scorePart2       Decimal  @db.Decimal(4, 2) @map("score_part_2")
+  scorePart3       Decimal  @db.Decimal(4, 2) @map("score_part_3")
+  totalScore       Decimal  @db.Decimal(4, 2) @map("total_score")
+  timeSpentSeconds Int      @map("time_spent_seconds")
+  radarAnalysis    Json     @map("radar_analysis") // 6-chapter score & mastery breakdown
+  weakTopics       Json     @map("weak_topics")    // Topics where points were lost
+  submittedAt      DateTime @default(now()) @map("submitted_at")
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exam           Exam            @relation(fields: [examId], references: [id], onDelete: Cascade)
+  attemptAnswers AttemptAnswer[]
+
+  @@index([userId, examId])
+  @@map("exam_attempts")
+}
+
+model AttemptAnswer {
+  id           String   @id @default(uuid())
+  attemptId    String   @map("attempt_id")
+  questionId   String   @map("question_id")
+  userAnswer   Json     @map("user_answer") // Single key "A", object {"a": true, ...}, or string "12"
+  pointsEarned Decimal  @db.Decimal(4, 2) @map("points_earned")
+  maxPoints    Decimal  @db.Decimal(4, 2) @map("max_points")
+  isFullPoints Boolean  @map("is_full_points")
+
+  attempt  ExamAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([attemptId])
+  @@index([questionId])
+  @@map("attempt_answers")
+}
+
+model MistakeNotebook {
+  id            String        @id @default(uuid())
+  userId        String        @map("user_id")
+  questionId    String        @map("question_id")
+  problemTypeId String?       @map("problem_type_id")
+  source        MistakeSource @default(PRACTICE)
+  studentAnswer String        @map("student_answer") @db.Text
+  correctAnswer String        @map("correct_answer") @db.Text
+  wrongCount    Int           @default(1) @map("wrong_count")
+  isResolved    Boolean       @default(false) @map("is_resolved")
+  lastMistakeAt DateTime      @default(now()) @map("last_mistake_at")
+  resolvedAt    DateTime?     @map("resolved_at")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question    Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  problemType ProblemType? @relation(fields: [problemTypeId], references: [id], onDelete: SetNull)
+
+  @@unique([userId, questionId])
+  @@index([userId, isResolved])
+  @@index([problemTypeId])
+  @@map("mistake_notebook")
+}
